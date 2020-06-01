@@ -9,7 +9,7 @@ import Publikacje.PublikacjaExceptions.ZaKrotkiTytulException;
  */
 
 
-public class Publikacja {
+public abstract class Publikacja {
     /**
      * Zmienna zawierajaca tytuł publikacji.
      */
@@ -29,7 +29,7 @@ public class Publikacja {
      * @param tytul Tytuł danej publikacji.
      * @exception Publikacje.PublikacjaExceptions.ZaKrotkiTytulException Wyjątek występujący przy tytule, którego długość jest równa 0.
      */
-    public Publikacja (String tytul) throws Exception
+    public Publikacja (String tytul) throws ZaKrotkiTytulException
     {
         try {
             this.setTytul(tytul);
@@ -61,7 +61,7 @@ public class Publikacja {
      * @param tytul Parametr typu String, będący tytułem danej publikacji.
      * @throws Publikacje.PublikacjaExceptions.ZaKrotkiTytulException Wyjątek występujący przy tytule, którego długość jest równa 0.
      */
-    protected void setTytul (String tytul) throws Exception {
+    protected void setTytul (String tytul) throws ZaKrotkiTytulException {
         if(tytul.length()<1)throw new ZaKrotkiTytulException();
         this.tytul=tytul;
     }

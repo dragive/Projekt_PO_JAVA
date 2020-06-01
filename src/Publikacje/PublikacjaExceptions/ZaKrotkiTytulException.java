@@ -1,8 +1,8 @@
 package Publikacje.PublikacjaExceptions;
 
 /**
+ * Klasa wyjątku ZaKrotkiGatunekException
  * @author MF
- * 
  */
 public class ZaKrotkiTytulException extends Exception{
     String message;
