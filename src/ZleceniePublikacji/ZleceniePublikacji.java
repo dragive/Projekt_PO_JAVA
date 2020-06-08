@@ -50,4 +50,14 @@ public class ZleceniePublikacji {
         this.dataUkonczenia=nowaData;
     }
 
+    /**
+     * Publiczna metoda złużąca do zmiany zaplaty w zawartej umowie.
+     * @param nowaZaplata Nowa zaplata
+     * @throws UjemnaZaplataException Wyjątek podnoszony, gdy zaplata będzie ujemna
+     */
+    public void zmienZaplate(float nowaZaplata) throws UjemnaZaplataException{
+        if(nowaZaplata<0)throw new UjemnaZaplataException();
+        this.zaplata=nowaZaplata;
+    }
+
 }
