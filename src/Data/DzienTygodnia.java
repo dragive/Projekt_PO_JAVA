@@ -1,8 +1,8 @@
 package Data;
 
 
-import Data.DzienTygodniaExceptions.ZaDuzyDzienTygodnia;
-import Data.DzienTygodniaExceptions.ZaMalyDzienTygodnia;
+import Data.DzienTygodniaExceptions.ZaDuzyDzienTygodniaException;
+import Data.DzienTygodniaExceptions.ZaMalyDzienTygodniaException;
 
 
 
@@ -22,15 +22,15 @@ public class DzienTygodnia {
     public DzienTygodnia(Data data){
         this.dzien=getDzienTygodniaFromData(data);
     }
-    public static void sprawdzPoprawnoscDniaTygodnia(int dzien)throws ZaDuzyDzienTygodnia,ZaMalyDzienTygodnia {
-        if(dzien>7)throw new ZaDuzyDzienTygodnia();
-        if(dzien<1)throw new ZaMalyDzienTygodnia();
+    public static void sprawdzPoprawnoscDniaTygodnia(int dzien)throws ZaDuzyDzienTygodniaException, ZaMalyDzienTygodniaException {
+        if(dzien>7)throw new ZaDuzyDzienTygodniaException();
+        if(dzien<1)throw new ZaMalyDzienTygodniaException();
     }
-    public void sprawdzPoprawnoscDniaTygodnia()throws ZaDuzyDzienTygodnia,ZaMalyDzienTygodnia {
+    public void sprawdzPoprawnoscDniaTygodnia()throws ZaDuzyDzienTygodniaException, ZaMalyDzienTygodniaException {
         sprawdzPoprawnoscDniaTygodnia(this.dzien);
     }
 
-    public void setDzien(int dzien)throws ZaMalyDzienTygodnia,ZaDuzyDzienTygodnia {
+    public void setDzien(int dzien)throws ZaMalyDzienTygodniaException, ZaDuzyDzienTygodniaException {
         sprawdzPoprawnoscDniaTygodnia(dzien);
         this.dzien=dzien;
     }
