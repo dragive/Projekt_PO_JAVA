@@ -2,8 +2,6 @@ package Data;
 
 import Data.DataExceptions.*;
 
-import java.util.Objects;
-
 public class Data {
     private int dzien,rok,miesiac;
     public Data(int rok,int miesiac,int dzien){
@@ -11,6 +9,7 @@ public class Data {
         this.dzien=dzien;
         this.miesiac=miesiac;
     }
+
     public Data(Data data){
         this.rok=data.getRok();
         this.dzien=data.getDzien();
@@ -34,8 +33,6 @@ public class Data {
     public int getDzien(){return this.dzien;}
     public int getRok(){return this.rok;}
     public int getMiesiac(){return this.miesiac;}
-
-
 
     public void sprawdzData()throws ZaMalaWartoscDniaException,ZaDuzaWartoscDniaException,ZaMalaWartoscMiesiacaException,ZaDuzaWartoscMiesiacaException{
         boolean przestepny=false;
@@ -73,22 +70,22 @@ public class Data {
         }
     }
 
-    public Data kolejnyDzien()throws ZaMalaWartoscDniaException,ZaMalaWartoscMiesiacaException{
+    public Data kolejnyDzien(){
 
         this.dzien+=1;
         boolean poprawnyFormatDaty=false;
         while(!poprawnyFormatDaty){
             poprawnyFormatDaty=true;
             try{
-             sprawdzData();
+                this.sprawdzData();
             }
-            catch (ZaDuzaWartoscDniaException ex){
+            catch (NieprawidlowaWartoscDniaException ex){
                 poprawnyFormatDaty=false;
                 this.dzien=1;
                 this.miesiac+=1;
                 continue;
             }
-            catch (ZaDuzaWartoscMiesiacaException ex){
+            catch (NieprawidlowaWartoscMiesiacaException ex){
                 poprawnyFormatDaty=false;
                 this.miesiac=1;
                 this.rok+=1;
@@ -98,6 +95,7 @@ public class Data {
         }
         return this;
     }
+
     @Override
     public String toString() {
         String miesiac;
@@ -125,5 +123,6 @@ public class Data {
                 this.getRok() == data.getRok() &&
                 this. getMiesiac() == data.getMiesiac();
     }
+
 
 }
