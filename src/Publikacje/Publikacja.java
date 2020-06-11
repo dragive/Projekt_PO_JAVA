@@ -2,7 +2,7 @@ package Publikacje;
 import Publikacje.PublikacjaExceptions.ZaKrotkiTytulException;
 
 /**
- * @author MF
+ * @author MF<br>
  * Klasa abstrakcyjna.
  * Klasa bazowa dla klas Publikacja Cykliczna i Ksiażka.
  *
@@ -31,12 +31,7 @@ public abstract class Publikacja {
      */
     public Publikacja (String tytul) throws ZaKrotkiTytulException
     {
-        try {
             this.setTytul(tytul);
-        }
-        catch (ZaKrotkiTytulException ex){
-            throw new ZaKrotkiTytulException(ex);
-        }
     }
 
     /**

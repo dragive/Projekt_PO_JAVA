@@ -4,6 +4,7 @@ import Publikacje.PublikacjaExceptions.ZaKrotkiGatunekException;
 import Publikacje.PublikacjaExceptions.ZaKrotkiTytulException;
 
 /**
+ * @author MF
  * Klasa ksiażki
  */
 public class Ksiazka  extends Publikacja{

@@ -35,39 +35,14 @@ public class Data {
     public int getMiesiac(){return this.miesiac;}
 
     public void sprawdzData()throws ZaMalaWartoscDniaException,ZaDuzaWartoscDniaException,ZaMalaWartoscMiesiacaException,ZaDuzaWartoscMiesiacaException{
-        boolean przestepny=false;
-        if( (this.rok%400==0) || ( (this.rok%100!=0) && (this.rok%4==0) ) )
-            przestepny=true;
         if(this.dzien<1)
             throw new ZaMalaWartoscDniaException();
-        switch (this.miesiac){
-            case 1:
-            case 3:
-            case 5:
-            case 7:
-            case 8:
-            case 10:
-            case 12:
-                if(this.dzien>31){
-                    throw new ZaDuzaWartoscDniaException();
-                }
-                break;
-            case 2:
-                if(( !przestepny && this.dzien>28) || (przestepny && this.dzien>29)){
-                    throw new ZaDuzaWartoscDniaException();
-                }
-                break;
-            case 4:
-            case 6:
-            case 9:
-            case 11:
-                if(this.dzien>30)
-                    throw new ZaDuzaWartoscDniaException();
-                break;
-            default:
-                if(this.miesiac<1)throw new ZaMalaWartoscMiesiacaException();
-                else throw new ZaDuzaWartoscMiesiacaException();
-        }
+        if(this.miesiac<1)
+            throw new ZaMalaWartoscMiesiacaException();
+        if(this.miesiac>12)
+            throw new ZaDuzaWartoscMiesiacaException();
+        if(this.getIloscDniWMiesiacu()<this.dzien)
+            throw new ZaDuzaWartoscDniaException();
     }
 
     public Data kolejnyDzien(){
@@ -124,5 +99,32 @@ public class Data {
                 this. getMiesiac() == data.getMiesiac();
     }
 
+    public int getIloscDniWMiesiacu(){
+        int iloscDni=0;
+        boolean przestepny=false;
+        if( (this.rok%400==0) || ( (this.rok%100!=0) && (this.rok%4==0) ) )
+            przestepny=true;
+        switch (this.miesiac){
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                iloscDni=31;
+                break;
+            case 2:
+                if(przestepny)iloscDni=29;else iloscDni=28;
+                break;
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                iloscDni=30;
+                break;
+        }
+        return iloscDni;
+    }
 
 }

@@ -1,7 +1,5 @@
 package Data.DzienTygodniaExceptions;
 
-
-
-public class ZaMalyDzienTygodniaException extends NieprawidlowyDzienTygodniaException{
+public final class ZaMalyDzienTygodniaException extends NieprawidlowyDzienTygodniaException{
     public ZaMalyDzienTygodniaException(){super();}
 }
