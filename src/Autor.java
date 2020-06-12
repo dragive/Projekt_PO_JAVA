@@ -1,12 +1,10 @@
-package Autor;
-
 import java.util.List;
 
 /**
  *
  * @author 
  */
-public class Autor {
+class Autor {
     private String imienazwisko;
     private List<Umowa> lista_umow;
     lista_umow = new List<Umowa>();
