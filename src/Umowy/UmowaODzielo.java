@@ -3,6 +3,9 @@ package Umowy;
 import Publikacje.Publikacja;
 import ZleceniePublikacji.ZleceniePublikacjiExceptions.UjemnaZaplataException;
 import Data.Data;
+
+import java.io.Serializable;
+
 /**
  * Klasa finalna dziedzicząca z klasy abstrakcyjnej {@link Umowa}.
  * @author MF
@@ -72,4 +75,15 @@ public final class UmowaODzielo extends Umowa{
         if(zaplata<0)throw new UjemnaZaplataException();
         this.zaplata=zaplata;
     }
+    @Override
+    public void aktualizacnaAktywnosciUmowy(Data data){
+        if(dataZawarcia.wczesniejsza(data)==1&&data.wczesniejsza(dataUkonczenia)==1)
+            czyAktywna=true;
+            else czyAktywna=false;
+    }
+    @Override
+    public void kolejnyDzien(Data data){
+        this.aktualizacnaAktywnosciUmowy(data);
+    }
+
 }

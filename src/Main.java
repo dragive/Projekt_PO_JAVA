@@ -3,6 +3,6 @@ import java.io.Console;
 public class Main {
 
     public static void main(String[] args) {
-        test x= new test();
+        test x = new test();
     }
 }

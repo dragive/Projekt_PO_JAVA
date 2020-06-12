@@ -20,12 +20,15 @@ public class Ksiazka  extends Publikacja{
      * @throws ZaKrotkiTytulException Wyjątek występujący,gdy następuje próba ustawienia za krótkiego tytułu
      * @throws ZaKrotkiGatunekException Wyjątek występujący,gdy następuje próba ustawienia za krótkiego gatunku
      */
-    public Ksiazka(String tytul, String gatunek) throws ZaKrotkiTytulException, ZaKrotkiGatunekException
+    public Ksiazka(String tytul, String gatunek)// throws ZaKrotkiTytulException, ZaKrotkiGatunekException
     {
         super(tytul);
-        if (gatunek.length()<1){
+        /*if (gatunek.length()<1){
             throw new ZaKrotkiGatunekException();
-        }
+        }*/
         this.gatunek=gatunek;
+    }
+    public String getGatunek(){
+        return  this.gatunek;
     }
 }

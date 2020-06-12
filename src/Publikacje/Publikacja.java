@@ -1,6 +1,8 @@
 package Publikacje;
 import Publikacje.PublikacjaExceptions.ZaKrotkiTytulException;
 
+import java.io.Serializable;
+
 /**
  * Klasa abstrakcyjna. Klasa bazowa dla klas {@link PublikacjaCykliczna} i {@link Ksiazka}.
  * @author MF
@@ -8,7 +10,7 @@ import Publikacje.PublikacjaExceptions.ZaKrotkiTytulException;
  */
 
 
-public abstract class Publikacja {
+public abstract class Publikacja implements Serializable {
     /**
      * Zmienna zawierajaca tytuł publikacji.
      */
@@ -28,9 +30,10 @@ public abstract class Publikacja {
      * @param tytul Tytuł danej publikacji.
      * @exception Publikacje.PublikacjaExceptions.ZaKrotkiTytulException Wyjątek występujący przy tytule, którego długość jest równa 0.
      */
-    public Publikacja (String tytul) throws ZaKrotkiTytulException
+    public Publikacja (String tytul)// throws ZaKrotkiTytulException
     {
             this.setTytul(tytul);
+            ID=++nextID; //#todo pobranie wczytanie id
     }
 
     /**
@@ -55,8 +58,8 @@ public abstract class Publikacja {
      * @param tytul Parametr typu String, będący tytułem danej publikacji.
      * @throws Publikacje.PublikacjaExceptions.ZaKrotkiTytulException Wyjątek występujący przy tytule, którego długość jest równa 0.
      */
-    protected void setTytul (String tytul) throws ZaKrotkiTytulException {
-        if(tytul.length()<1)throw new ZaKrotkiTytulException();
+    protected void setTytul (String tytul)  {
+        //if(tytul.length()<1)throw new ZaKrotkiTytulException();
         this.tytul=tytul;
     }
 

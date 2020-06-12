@@ -2,11 +2,13 @@ package Data;
 
 import Data.DataExceptions.*;
 
+import java.io.Serializable;
+
 /**
  * Klasa {@link Data} wykorzystywana jest do określania czasu, definiowania dat w całym projekcie. Na jej podstawie rozstrzyga się okresy trwania np. umów.
  * @author MF
  */
-public class Data {
+public class Data implements Serializable {
     /**
      * Prywatne pole klasy {@link Data}. Przechowuje informacje o dniu w dacie.
      */
@@ -206,6 +208,22 @@ public class Data {
                 break;
         }
         return iloscDni;
+    }
+    public int wczesniejsza(Data data){
+        if(this.rok>data.rok)return -1;
+        else if(this.rok==data.rok){
+            if(this.miesiac>data.miesiac)return -1;
+            else if(this.miesiac==data.miesiac){
+                if(this.dzien>data.dzien)return -1;
+                else if(this.dzien==data.dzien){
+                    return 0;
+                }
+                else return 1;
+            }
+            else return 1;
+        }
+        else return 1;
+
     }
 
 }

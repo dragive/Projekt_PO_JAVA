@@ -1,9 +1,16 @@
+import Data.DzienMiesiacaExceptions.ZaDuzyDzienMiesiacaException;
 import Data.DzienTygodnia;
 import Data.Data;
+import Konsola.Konsola;
+import Publikacje.Tygodnik;
+
 public class test {
     public test(){
-        System.out.println(new DzienTygodnia(new Data(2020,6,11)));
-}
+        (new Konsola()).startProgramu();
+
+    }
+
+
 }
 
 

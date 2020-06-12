@@ -1,5 +1,6 @@
 package ZleceniePublikacji;
 
+import Data.Data;
 import Publikacje.Publikacja;
 import ZleceniePublikacji.ZleceniePublikacjiExceptions.UjemnaZaplataException;
 
@@ -9,8 +10,8 @@ import ZleceniePublikacji.ZleceniePublikacjiExceptions.UjemnaZaplataException;
  */
 public class ZleceniePublikacji {
     private Publikacja dzielo;
-    //#todo data
-    private String dataUkonczenia;
+
+    private Data dataUkonczenia;
     private float zaplata;
 
     /**
@@ -20,7 +21,7 @@ public class ZleceniePublikacji {
      * @param dzielo Publikacja, której dotyczy sie zlecenie zaplaty
      * @throws UjemnaZaplataException Wyjątek wyrzucany przy ujemnej kwocie.
      */
-    public ZleceniePublikacji(Float zaplata,String dataUkonczenia, Publikacja dzielo) throws UjemnaZaplataException {
+    public ZleceniePublikacji(Float zaplata,Data dataUkonczenia, Publikacja dzielo) throws UjemnaZaplataException {
         if(zaplata<0){throw new UjemnaZaplataException();}
         this.dzielo = dzielo;
         this. dataUkonczenia= dataUkonczenia;
@@ -31,8 +32,7 @@ public class ZleceniePublikacji {
      * Publiczna metoda klasy {@link ZleceniePublikacji}
      * @return Zwraca date ukończenia
      */
-    //#todo data
-    public String getDataUkonczenia(){
+    public Data getDataUkonczenia(){
         return this.dataUkonczenia;
     }
 
@@ -48,8 +48,8 @@ public class ZleceniePublikacji {
      * Publiczna metoda klasy {@link ZleceniePublikacji}
      * @param nowaData Ustawia nową datę ukończenia wydruku danej pozycji
      */
-    //#todo data
-    public void przedluzUkonczenie(String nowaData){
+
+    public void przedluzUkonczenie(Data nowaData){
         this.dataUkonczenia=nowaData;
     }
 

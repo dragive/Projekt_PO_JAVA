@@ -1,15 +1,18 @@
 package Autor;
 
 import Autor.AutorExceptions.PusteImieNazwiskoException;
+import Data.Data;
 import Umowy.Umowa;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 /**
  * Klasa opisująca autorów publikacji (zobacz też: {@link Publikacje.Publikacja}).
  * @author ACH i MF
  */
-class Autor {
+public class Autor implements Serializable {
     /**
      * Prywatne pole obiektów klasy {@link Autor} przechowujące informacje o imieniu i nazwisku autora.
      */
@@ -66,5 +69,18 @@ class Autor {
     public void sprawdzImieNazwisko() throws PusteImieNazwiskoException {
         sprawdzImieNazwisko(this.imieNazwisko);
     }
+    public void kolejnyDzien(Data data){
+        //#todo spradzenei waznosci umow
+        Iterator it = umowy.iterator();
+        Umowa u;
+        while(it.hasNext()){
+            u= (Umowa)it.next();
+            u.kolejnyDzien(data);
+        }
+    }
 
+    @Override
+    public String toString() {
+        return "Imie i nazwisko: "+imieNazwisko +"\t\t\t\t Ilość umów: "+this.umowy.size();
+    }
 }

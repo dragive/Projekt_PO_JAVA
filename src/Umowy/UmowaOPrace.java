@@ -21,7 +21,7 @@ public class UmowaOPrace  extends  Umowa{
     /**
      * Zmienna określająca czy dana umowa jest już rozwiązana, czy nie
      */
-    private boolean czyRozwiazana;
+
     /**
      * Lista zleceń zawartych w umowie
      */
@@ -35,7 +35,7 @@ public class UmowaOPrace  extends  Umowa{
     public UmowaOPrace(Data dataZawarcia, Data dataKonca){
         super(dataZawarcia);
         this.dataKonca=dataKonca;
-        this.czyRozwiazana=false;
+        this.czyAktywna=false;
         zlecenia = new ArrayList<ZleceniePublikacji>();
     }
 
@@ -72,12 +72,25 @@ public class UmowaOPrace  extends  Umowa{
         for(int i=0;i<iloscDni;i++)this.dataKonca.kolejnyDzien();
     }
 
+
     /**
      * Rozwiązuje daną umowę.
      * @throws PonowneRozwiazanieUmowyException Wyjątek wyrzucany, gdy rozwiązywana jest juz umowa rozwiązana.
      */
     public void rozwiazUmowe() throws PonowneRozwiazanieUmowyException {
-        if(this.czyRozwiazana==true) throw new PonowneRozwiazanieUmowyException();
-        this.czyRozwiazana=true;
+        if(this.czyAktywna==true) throw new PonowneRozwiazanieUmowyException();
+        this.czyAktywna=true;
     }
+
+    @Override
+    public void aktualizacnaAktywnosciUmowy(Data data){
+        if(dataZawarcia.wczesniejsza(data)==1&&data.wczesniejsza(dataKonca)==1)
+            czyAktywna=true;
+        else czyAktywna=false;
+    }
+    @Override
+    public void kolejnyDzien(Data data){
+        this.aktualizacnaAktywnosciUmowy(data);
+    }
+
 }
