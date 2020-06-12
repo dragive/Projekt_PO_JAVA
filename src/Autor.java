@@ -1,25 +1,51 @@
-import java.util.List;
+import Umowy.Umowa;
 
+import java.util.ArrayList;
+import java.util.List;
 /**
- *
- * @author 
+ * Klasa opisująca autorów publikacji (zobacz też: {@link Publikacje.Publikacja}).
+ * @author ACH i MF
  */
 class Autor {
-    private String imienazwisko;
-    private List<Umowa> lista_umow;
-    lista_umow = new List<Umowa>();
-    
-    public Autor(String imienazwisko){
-        this.imienazwisko = imienazwisko;
+    /**
+     * Prywatne pole obiektów klasy {@link Autor} przechowujące informacje o imieniu i nazwisku autora.
+     */
+    private String imieNazwisko;
+    /**
+     * Prywatne pole obiektów klasy {@link Autor} przechowujące informacje o imieniu i nazwisu autora.
+     */
+    private List<Umowa> umowy ;
+
+    /**
+     * Konstruktor publiczny obiektów klasy {@link Autor}.
+     * @param imieNazwisko Parametr definiujący jakie imię i nazwisko posaida autor.
+     */
+    public Autor(String imieNazwisko){
+        umowy = new ArrayList<Umowa>();
+        this.imieNazwisko = imieNazwisko;
     }
+
+    /**
+     * Metoda obiektów klasy {@link Autor}. Zwraca imię i nazwisko autora.
+     * @return Zwraca imię i nazwisko autora.
+     */
     public String getImieNazwisko(){
-        return imienazwisko;
+        return imieNazwisko;
     }
+    /**
+     * Metoda obiektów klasy {@link Autor}. Zwraca listę umów zawartych z autorem.
+     * @return Zwraca listę umów zawartych z autorem
+     */
     public List<Umowa> getUmowy(){
-        return lista_umow;
+        return umowy;
     }
-    public void dodajUmowe(Umowa){
-        lista_umow.add(Umowa);
+
+    /**
+     Metoda obiektów klasy {@link Autor}. Zapisauje zawartą umowe z autorem.
+     * @param umowa umowa zawarta z autorem, przypsiana do niego.
+     */
+    public void dodajUmowe(Umowa umowa){
+        umowy.add(umowa);
     }
     
 }
