@@ -4,8 +4,8 @@ import Publikacje.PublikacjaExceptions.ZaKrotkiGatunekException;
 import Publikacje.PublikacjaExceptions.ZaKrotkiTytulException;
 
 /**
+ * Klasa {@link Ksiazka} rozszerza klasę abstrakcyjną {@link Publikacja}.
  * @author MF
- * Klasa ksiażki
  */
 public class Ksiazka  extends Publikacja{
     /**

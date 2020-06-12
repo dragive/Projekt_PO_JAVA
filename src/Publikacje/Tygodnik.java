@@ -1,30 +1,31 @@
 package Publikacje;
 
-import Publikacje.PublikacjaExceptions.NieprawidlowyFormatDatyException;
+import Data.DzienTygodnia;
+import Data.DzienTygodniaExceptions.ZaDuzyDzienTygodniaException;
+import Data.DzienTygodniaExceptions.ZaMalyDzienTygodniaException;
 import Publikacje.PublikacjaExceptions.ZaKrotkiTytulException;
 
 /**
+ * Klasa finalna {@link Tygodnik} dziedziczy z klasy abstrakcyjnej {@link PublikacjaCykliczna}.
  * @author MF
- * Klasa Tygodnika, dziedziczącej z klasy abstrakcyjnej <i>PublikacjaCykliczna</i>
  */
-public class Tygodnik extends PublikacjaCykliczna{
+public final class Tygodnik extends PublikacjaCykliczna{
     /**
-     * Prywatne pole klasy Tygodnik
+     * Prywatne pole klasy {@link Tygodnik}
      * Przechowuje informacje o dniu tygodnia
      */
-    private String dzienTygodnia;
+    private DzienTygodnia dzienTygodnia;
     /**
-     * Konstruktor klasy Tygodnik
+     * Konstruktor klasy {@link Tygodnik}
      * @param tytul Tytuł danej publikacji
      * @param dzienTygodnia Dzień Tygodnia cyklicznego wydawania publikacji
-     * @throws ZaKrotkiTytulException Wyjątek, podnoszony gdy tytuł jest za krótki
-     * @throws NieprawidlowyFormatDatyException wyjątek podnoszony gdy jest podany nieprawidlowy format daty
+     * @throws ZaKrotkiTytulException Wyjątek podnoszony, gdy tytuł jest za krótki
+     * @throws ZaDuzyDzienTygodniaException wyjątek podnoszony, gdy jest podany dzień tygodnia jest za duży
+     * @throws ZaMalyDzienTygodniaException wyjątek podnoszony, gdy jest podany dzień tygodnia jest za mały
      */
-    public Tygodnik(String tytul,String dzienTygodnia)throws ZaKrotkiTytulException, NieprawidlowyFormatDatyException {
+    public Tygodnik(String tytul,DzienTygodnia dzienTygodnia) throws ZaKrotkiTytulException, ZaDuzyDzienTygodniaException, ZaMalyDzienTygodniaException {
         super(tytul);
-        if(dzienTygodnia.length()<1){
-            throw new NieprawidlowyFormatDatyException();
-        }
+        dzienTygodnia.sprawdzPoprawnoscDniaTygodnia();
         this.dzienTygodnia=dzienTygodnia;
     }
 }

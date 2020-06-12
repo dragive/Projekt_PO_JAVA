@@ -2,34 +2,34 @@ package Umowy;
 
 import Publikacje.Publikacja;
 import ZleceniePublikacji.ZleceniePublikacjiExceptions.UjemnaZaplataException;
-
+import Data.Data;
 /**
+ * Klasa finalna dziedzicząca z klasy abstrakcyjnej {@link Umowa}.
  * @author MF
- * Klasa dziedzicząca z klasy abstrakcyjnej <i>Umowa</i>
  */
-public class UmowaODzielo extends Umowa{
+public final class UmowaODzielo extends Umowa{
     /**
      * Publikacja, na której wytworzenie została podpisana umowa
      */
     private Publikacja dzielo;
     /**
-     * Data ukończenia pracy nad daną publikacją
+     * Data ukończenia pracy nad daną publikacją (klasa {@link Publikacja} )
      */
-    private String dataUkonczenia;
+    private Data dataUkonczenia;
     /**
      * Kwota jaka sie należy autorowi za wykonaną prace
      */
     private float zaplata;
 
     /**
-     * Publiczny konstruktor klasy UmowaODzielo
+     * Publiczny konstruktor klasy {@link UmowaODzielo}
      * @param zaplata Wysokośc zaplaty za wykonaną pracę
      * @param dataZawarcia Data zawarcia umowy
      * @param dataUkonczenia Data ukończenia umowy
      * @param dzielo Dzieło, na którego wykonanie została podpisana umowa
-     * @throws UjemnaZaplataException
+     * @throws UjemnaZaplataException Wyjątek wyrzucany, gdy występuje nie prawidłowa, ujemna kwota zapłaty.
      */
-    public UmowaODzielo(Float zaplata,String dataZawarcia, String dataUkonczenia,Publikacja dzielo) throws UjemnaZaplataException {
+    public UmowaODzielo(Float zaplata,Data dataZawarcia, Data dataUkonczenia,Publikacja dzielo) throws UjemnaZaplataException {
         super(dataZawarcia);
         if (zaplata < 0) throw new UjemnaZaplataException();
         this.zaplata = zaplata;
@@ -38,15 +38,15 @@ public class UmowaODzielo extends Umowa{
     }
 
     /**
-     * Publiczna metoda klasy UmowaODzielo
+     * Publiczna metoda klasy {@link UmowaODzielo}
      * @return Zwracana jest data ukończenia.
      */
-    public String getDataUkonczenia() {
+    public Data getDataUkonczenia() {
         return this.dataUkonczenia;
     }
 
     /**
-     * Publiczna metoda klasy UmowaODzielo
+     * Publiczna metoda klasy {@link UmowaODzielo}
      * @return Zwracana jest zaplata
      */
     public float getZaplata() {
@@ -54,15 +54,17 @@ public class UmowaODzielo extends Umowa{
     }
 
     /**
-     * Publiczna metoda klasy UmowaODzielo
-     * @param nowaData Nowa data, do której będzie obowiązywać dana umowa
+     * Publiczna metoda klasy {@link UmowaODzielo}
+     * @param iloscDni ilość dni, o które ma być przedłużona umowa
      */
-    public void przedluzUkonczenie(String nowaData){
-        this.dataUkonczenia=nowaData;
+    public void przedluzUkonczenie(int iloscDni){
+        for(int i=0;i<iloscDni;i++){
+            this.dataUkonczenia.kolejnyDzien();
+        }
     }
 
     /**
-     * Publiczna metoda klasy UmowaODzielo
+     * Publiczna metoda klasy {@link UmowaODzielo}
      * @param nowaZaplata Nowa wartość zaplaty do aktualizacji w umowie
      * @throws UjemnaZaplataException Wyjątek podnoszony, gdy zaplata jest ujemna
      */

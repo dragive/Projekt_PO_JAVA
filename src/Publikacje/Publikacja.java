@@ -2,9 +2,8 @@ package Publikacje;
 import Publikacje.PublikacjaExceptions.ZaKrotkiTytulException;
 
 /**
- * @author MF<br>
- * Klasa abstrakcyjna.
- * Klasa bazowa dla klas Publikacja Cykliczna i Ksiażka.
+ * Klasa abstrakcyjna. Klasa bazowa dla klas {@link PublikacjaCykliczna} i {@link Ksiazka}.
+ * @author MF
  *
  */
 
@@ -15,7 +14,7 @@ public abstract class Publikacja {
      */
     private String tytul;
     /**
-     * Zmienna charakterystyczna dla każdego obiektu z klasy Publikacja.
+     * Zmienna charakterystyczna dla każdego obiektu z klasy {@link Publikacja}.
      */
     private int ID;
     /**
@@ -24,7 +23,7 @@ public abstract class Publikacja {
     static private int nextID;
 
     /**
-     * Konstruktor abstrakcyjnej klasy Publikacja
+     * Konstruktor abstrakcyjnej klasy {@link Publikacja}
      * Pobiera 1 parametr.
      * @param tytul Tytuł danej publikacji.
      * @exception Publikacje.PublikacjaExceptions.ZaKrotkiTytulException Wyjątek występujący przy tytule, którego długość jest równa 0.
@@ -35,7 +34,7 @@ public abstract class Publikacja {
     }
 
     /**
-     * Metoda klasy abstrakcyjnej Publikacja
+     * Metoda klasy abstrakcyjnej {@link Publikacja}
      * @return Zwraca tutuł danej publikacji
      */
     public String getTytul(){
@@ -43,7 +42,7 @@ public abstract class Publikacja {
     }
 
     /**
-     * Metoda klasy abstrakcyjnej Publikacja
+     * Metoda klasy abstrakcyjnej {@link Publikacja}
      * @return Zwraca charakterystyczny numer danej publikacji
      */
     public int getID(){
@@ -51,7 +50,7 @@ public abstract class Publikacja {
     }
 
     /**
-     * Metoda abstrakcyjnej klasy Publikacja
+     * Metoda abstrakcyjnej klasy {@link Publikacja}
      * Zapisauje tytuł publikacji.
      * @param tytul Parametr typu String, będący tytułem danej publikacji.
      * @throws Publikacje.PublikacjaExceptions.ZaKrotkiTytulException Wyjątek występujący przy tytule, którego długość jest równa 0.

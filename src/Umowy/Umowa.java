@@ -1,28 +1,34 @@
 package Umowy;
 
+import Data.Data;
+
 /**
+ * Klasa abstrakcyjma {@link Umowa}
+ * Dziedziczą z niej klasy: {@link UmowaODzielo}, {@link UmowaOPrace}.
  * @author MF
- * Klasa abstrakcyjma Umowa
  */
 public abstract class Umowa {
     /**
      * Data zawarcia danej umowy
      */
-    protected String dataZawarcia;
+
+    protected Data dataZawarcia;
 
     /**
-     * Publiczna metoda klasy abstrakcyjnej Umowa
+     * Publiczna metoda klasy abstrakcyjnej {@link Umowa}
      * @return Zwraca datę zawarcia umowy.
      */
-    public String getDataZawarcia() {
+
+    public Data getDataZawarcia() {
         return this.dataZawarcia;
     }
 
     /**
-     * Metoda klasy Umowa
+     * Metoda klasy {@link Umowa}
      * @param dataZawarcia Zwraca date zawarcia umowy
      */
-    public Umowa(String dataZawarcia){
+
+    public Umowa(Data dataZawarcia){
         this.dataZawarcia=dataZawarcia;
     }
 }

@@ -4,16 +4,17 @@ import Publikacje.Publikacja;
 import ZleceniePublikacji.ZleceniePublikacjiExceptions.UjemnaZaplataException;
 
 /**
+ * Klasa publiczna {@link ZleceniePublikacji}
  * @author MF
- * Klasa publiczna ZleceniePublikacji
  */
 public class ZleceniePublikacji {
     private Publikacja dzielo;
+    //#todo data
     private String dataUkonczenia;
     private float zaplata;
 
     /**
-     * Konstruktor publiczny klasy ZleceniePublikacji
+     * Konstruktor publiczny klasy {@link ZleceniePublikacji}
      * @param zaplata Należnosc pieniedzy za wydrukoanie danej pozycji
      * @param dataUkonczenia Data ukonczenia druku danej pozycji
      * @param dzielo Publikacja, której dotyczy sie zlecenie zaplaty
@@ -27,15 +28,16 @@ public class ZleceniePublikacji {
     }
 
     /**
-     * Publiczna metoda klasy ZleceniePublikacji
+     * Publiczna metoda klasy {@link ZleceniePublikacji}
      * @return Zwraca date ukończenia
      */
+    //#todo data
     public String getDataUkonczenia(){
         return this.dataUkonczenia;
     }
 
     /**
-     * Publiczna metoda klasy ZleceniePublikacji
+     * Publiczna metoda klasy {@link ZleceniePublikacji}
      * @return Zwraca kwote, za którą ma być wydrukowana dana pozycja
      */
     public float getZaplata(){
@@ -43,9 +45,10 @@ public class ZleceniePublikacji {
     }
 
     /**
-     * Publiczna metoda klasy ZleceniePublikacji
+     * Publiczna metoda klasy {@link ZleceniePublikacji}
      * @param nowaData Ustawia nową datę ukończenia wydruku danej pozycji
      */
+    //#todo data
     public void przedluzUkonczenie(String nowaData){
         this.dataUkonczenia=nowaData;
     }

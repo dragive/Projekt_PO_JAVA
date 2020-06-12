@@ -2,6 +2,7 @@ package Publikacje.PublikacjaExceptions;
 
 /**
  * Klasa wyjątku ZaKrotkiGatunekException
+ * Rozszerza klasę {@link Exception}
  * @author MF
  */
 public class ZaKrotkiTytulException extends Exception{

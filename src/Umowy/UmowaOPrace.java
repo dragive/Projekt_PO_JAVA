@@ -6,17 +6,18 @@ import ZleceniePublikacji.ZleceniePublikacji;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import Data.Data;
 /**
- * @author MF
- * Klasa dziedzicząca z klasy abstrakcyjnej Umowa
+ * Klasa dziedzicząca z klasy abstrakcyjnej {@link Umowa}
  * Klasa reprezentuje umowy o prace.
+ * @author MF
  */
 public class UmowaOPrace  extends  Umowa{
     /**
      * Data końca umowy
      */
-    private String dataKonca;
+
+    private Data dataKonca;
     /**
      * Zmienna określająca czy dana umowa jest już rozwiązana, czy nie
      */
@@ -27,11 +28,11 @@ public class UmowaOPrace  extends  Umowa{
     private List<ZleceniePublikacji> zlecenia;
 
     /**
-     * Konstruktor publiczny klasy UmowaOPrace
+     * Konstruktor publiczny klasy {@link UmowaOPrace}
      * @param dataZawarcia Data zawarcia umowy.
      * @param dataKonca Data zakończenia umowy.
      */
-    public UmowaOPrace(String dataZawarcia, String dataKonca){
+    public UmowaOPrace(Data dataZawarcia, Data dataKonca){
         super(dataZawarcia);
         this.dataKonca=dataKonca;
         this.czyRozwiazana=false;
@@ -42,7 +43,7 @@ public class UmowaOPrace  extends  Umowa{
      * Metoda zwracająca date zakończenia umowy
      * @return Data zakończenia umowy
      */
-    public String getDataKonca() {
+    public Data getDataKonca() {
         return dataKonca;
     }
 
@@ -64,10 +65,11 @@ public class UmowaOPrace  extends  Umowa{
 
     /**
      * Metoda służąca doprzedłużenia umowy
-     * @param nowaData Nowa data zakończenia umowy
+     * @param iloscDni Ilość dni, o które przedlużana jest umowa.
      */
-    public void przedluz(String nowaData){
-        this.dataKonca=nowaData;
+
+    public void przedluz(int iloscDni){
+        for(int i=0;i<iloscDni;i++)this.dataKonca.kolejnyDzien();
     }
 
     /**

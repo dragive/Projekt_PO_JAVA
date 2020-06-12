@@ -1,18 +1,9 @@
-import Publikacje.Ksiazka;
-import Publikacje.Publikacja;
-
-import java.awt.*;
-import java.lang.Exception;
+import Data.DzienTygodnia;
+import Data.Data;
 public class test {
     public test(){
-        try {
-            Publikacja p = new Ksiazka("lorem","ipsum");
-        }
-        catch (Exception exception){
-            System.out.println(exception);
-            System.exit(1);
-        }
-    }
+        System.out.println(new DzienTygodnia(new Data(2020,6,11)));
+}
 }
 
 
