@@ -88,7 +88,7 @@ public class DzienMiesiaca {
      * Publiczna metoda służąca do porównania czy obiekt klasy {@link Data} odpowiada odpowiedniemu dniu zapisanemu w obiekcie klasy {@link DzienMiesiaca}.
      * Gdy w dacie zapisanej w obiekcie klasy {@link Data} miesiąc nie ma tylu dni ile potrzeba w klasie by zrównały sie wartościami, to ostatniego dnia miesiąca zostanie zwrócona wartość true.
      * @param data Zwraca wartość true, gdy data z obiektu klasy {@link Data} odpowiada dniu miesiąca w obiekcie klasy {@link DzienMiesiaca}.
-     * @return
+     * @return Zwraca wartośc logiczna mówiącą o zgodności dni miesiąca
      */
     public boolean equals(Data data) {
         return (data.getDzien()==this.dzienMiesiaca)||(data.getIloscDniWMiesiacu()<this.dzienMiesiaca);
