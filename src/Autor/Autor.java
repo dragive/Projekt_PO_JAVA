@@ -1,3 +1,6 @@
+package Autor;
+
+import Autor.AutorExceptions.PusteImieNazwiskoException;
 import Umowy.Umowa;
 
 import java.util.ArrayList;
@@ -20,7 +23,7 @@ class Autor {
      * Konstruktor publiczny obiektów klasy {@link Autor}.
      * @param imieNazwisko Parametr definiujący jakie imię i nazwisko posaida autor.
      */
-    public Autor(String imieNazwisko){
+    public Autor(String imieNazwisko) {
         umowy = new ArrayList<Umowa>();
         this.imieNazwisko = imieNazwisko;
     }
@@ -47,5 +50,21 @@ class Autor {
     public void dodajUmowe(Umowa umowa){
         umowy.add(umowa);
     }
-    
+
+    /**
+     * Prywatna statyczna metoda klasy {@link Autor} sprawdza poprawność Imienia i nazwiska.
+     * @param imieNazwisko Parametr w którym przekazywana jest wartość imienia i nazwiska autora
+     * @throws PusteImieNazwiskoException Wyrzucany wyjątek jako nieprawidłowość
+     */
+    private static void sprawdzImieNazwisko(String imieNazwisko) throws PusteImieNazwiskoException {
+        if(imieNazwisko.length()==0) throw new PusteImieNazwiskoException();
+    }
+    /**
+     * Prywatna statyczna metoda klasy {@link Autor} sprawdza poprawność Imienia i nazwiska.
+     * @throws PusteImieNazwiskoException Wyrzucany wyjątek jako nieprawidłowość
+     */
+    public void sprawdzImieNazwisko() throws PusteImieNazwiskoException {
+        sprawdzImieNazwisko(this.imieNazwisko);
+    }
+
 }
