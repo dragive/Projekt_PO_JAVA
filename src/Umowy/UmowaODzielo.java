@@ -1,5 +1,6 @@
 package Umowy;
 
+import Konsola.Konsola;
 import Publikacje.Publikacja;
 import ZleceniePublikacji.ZleceniePublikacjiExceptions.UjemnaZaplataException;
 import Data.Data;
@@ -22,7 +23,7 @@ public final class UmowaODzielo extends Umowa{
     /**
      * Kwota jaka sie należy autorowi za wykonaną prace
      */
-    private float zaplata;
+    private Float zaplata;
 
     /**
      * Publiczny konstruktor klasy {@link UmowaODzielo}
@@ -32,9 +33,9 @@ public final class UmowaODzielo extends Umowa{
      * @param dzielo Dzieło, na którego wykonanie została podpisana umowa
      * @throws UjemnaZaplataException Wyjątek wyrzucany, gdy występuje nie prawidłowa, ujemna kwota zapłaty.
      */
-    public UmowaODzielo(Float zaplata,Data dataZawarcia, Data dataUkonczenia,Publikacja dzielo) throws UjemnaZaplataException {
+    public UmowaODzielo(Float zaplata,Data dataZawarcia, Data dataUkonczenia,Publikacja dzielo)  {
         super(dataZawarcia);
-        if (zaplata < 0) throw new UjemnaZaplataException();
+       //if (zaplata < 0) throw new UjemnaZaplataException();
         this.zaplata = zaplata;
         this.dataUkonczenia = dataUkonczenia;
         this.dzielo = dzielo;
@@ -86,4 +87,12 @@ public final class UmowaODzielo extends Umowa{
         this.aktualizacnaAktywnosciUmowy(data);
     }
 
+    @Override
+    public String toString() {
+
+        return "Kategoria: \"O Dzieło\"     Na Dzielo: "+ Konsola.stalaSzerokosc( dzielo.getTytul(),20)+
+                "   Data Zawarcia: " + dataZawarcia +
+                "   Data Zakonczenia: " + dataUkonczenia +
+                "   Zaplata: " + Konsola.stalaSzerokosc( zaplata.toString(),7);
+    }
 }

@@ -1,5 +1,8 @@
 package Publikacje;
 
+import Autor.Autor;
+import Konsola.Konsola;
+import Konsola.Konsola.*;
 import Publikacje.PublikacjaExceptions.ZaKrotkiGatunekException;
 import Publikacje.PublikacjaExceptions.ZaKrotkiTytulException;
 
@@ -12,6 +15,7 @@ public class Ksiazka  extends Publikacja{
      * Zmienna przechowywująca informacje jakiego gatunku jest dana książka
      */
     private String gatunek;
+    private String imieNazwiskoAutora;
 
     /**
      * Konstruktor publiczny klasy Książka
@@ -20,15 +24,22 @@ public class Ksiazka  extends Publikacja{
      * @throws ZaKrotkiTytulException Wyjątek występujący,gdy następuje próba ustawienia za krótkiego tytułu
      * @throws ZaKrotkiGatunekException Wyjątek występujący,gdy następuje próba ustawienia za krótkiego gatunku
      */
-    public Ksiazka(String tytul, String gatunek)// throws ZaKrotkiTytulException, ZaKrotkiGatunekException
+    public Ksiazka(String tytul, String gatunek, String imieNazwiskoAutora)// throws ZaKrotkiTytulException, ZaKrotkiGatunekException
     {
         super(tytul);
-        /*if (gatunek.length()<1){
-            throw new ZaKrotkiGatunekException();
-        }*/
+        this.imieNazwiskoAutora=imieNazwiskoAutora;
         this.gatunek=gatunek;
     }
     public String getGatunek(){
         return  this.gatunek;
+    }
+
+public String getImieNazwiskoAutora(){return imieNazwiskoAutora;}
+
+    @Override
+    public String toString() {
+        return "Kategoria: Ksiazka        " + " Autor: "+Konsola.stalaSzerokosc(imieNazwiskoAutora,20)+
+                " Tytuł: "+ Konsola.stalaSzerokosc(getTytul(),20)+
+                " Gatunek: "+ Konsola.stalaSzerokosc(getGatunek(),20);
     }
 }

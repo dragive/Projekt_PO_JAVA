@@ -1,6 +1,7 @@
 package Umowy;
 
 
+import Konsola.Konsola;
 import Umowy.UmowyExceptions.PonowneRozwiazanieUmowyException;
 import ZleceniePublikacji.ZleceniePublikacji;
 
@@ -91,6 +92,14 @@ public class UmowaOPrace  extends  Umowa{
     @Override
     public void kolejnyDzien(Data data){
         this.aktualizacnaAktywnosciUmowy(data);
+    }
+
+    @Override
+    public String toString() {
+
+        return "Kategoria: \"O Prace\"                 "+ Konsola.stalaSzerokosc( "",20)+
+                "   Data Zawarcia: " + dataZawarcia+
+                "   Data Zakonczenia: " + dataKonca;
     }
 
 }

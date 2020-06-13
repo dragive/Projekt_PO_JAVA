@@ -16,6 +16,7 @@ public abstract class Umowa implements Serializable {
 
     protected Data dataZawarcia;
     protected boolean czyAktywna;
+    protected boolean zakonczonaManualnie;
     /**
      * Publiczna metoda klasy abstrakcyjnej {@link Umowa}
      * @return Zwraca datę zawarcia umowy.
@@ -31,7 +32,7 @@ public abstract class Umowa implements Serializable {
      */
 
     public Umowa(Data dataZawarcia){
-
+        zakonczonaManualnie=false;
         this.dataZawarcia=dataZawarcia;
 
     }
@@ -45,4 +46,8 @@ public abstract class Umowa implements Serializable {
     public void kolejnyDzien(Data data){
         this.aktualizacnaAktywnosciUmowy(data);
     }
+    public void zakonczManualnie(){
+        this.zakonczonaManualnie=true;
+    }
+    public boolean getZakonczonaManualnie(){ return  this.zakonczonaManualnie;}
 }

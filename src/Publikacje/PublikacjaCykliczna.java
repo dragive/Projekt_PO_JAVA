@@ -13,7 +13,7 @@ public abstract class PublikacjaCykliczna extends Publikacja{
      * @param tytul Jest to tytuł danej publikacji
      * @throws ZaKrotkiTytulException Podnoszony wyjątek {@link ZaKrotkiTytulException}, gdy tytuł jest długości 0
      */
-    public PublikacjaCykliczna(String tytul) throws  ZaKrotkiTytulException
+    public PublikacjaCykliczna(String tytul)
     {
         super(tytul);
 

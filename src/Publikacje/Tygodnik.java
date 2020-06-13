@@ -3,6 +3,7 @@ package Publikacje;
 import Data.DzienTygodnia;
 import Data.DzienTygodniaExceptions.ZaDuzyDzienTygodniaException;
 import Data.DzienTygodniaExceptions.ZaMalyDzienTygodniaException;
+import Konsola.Konsola;
 import Publikacje.PublikacjaExceptions.ZaKrotkiTytulException;
 
 /**
@@ -23,9 +24,15 @@ public final class Tygodnik extends PublikacjaCykliczna{
      * @throws ZaDuzyDzienTygodniaException wyjątek podnoszony, gdy jest podany dzień tygodnia jest za duży
      * @throws ZaMalyDzienTygodniaException wyjątek podnoszony, gdy jest podany dzień tygodnia jest za mały
      */
-    public Tygodnik(String tytul,DzienTygodnia dzienTygodnia) throws ZaKrotkiTytulException, ZaDuzyDzienTygodniaException, ZaMalyDzienTygodniaException {
+    public Tygodnik(String tytul,DzienTygodnia dzienTygodnia) {
         super(tytul);
-        dzienTygodnia.sprawdzPoprawnoscDniaTygodnia();
+
         this.dzienTygodnia=dzienTygodnia;
+    }
+    @Override
+    public String toString() {
+        return "Kategoria: Tygodnik              "+ Konsola.stalaSzerokosc("",20)+
+                " Tytuł: "+ Konsola.stalaSzerokosc(getTytul(),20);
+
     }
 }
