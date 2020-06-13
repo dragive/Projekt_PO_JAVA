@@ -125,7 +125,8 @@ public class Autor implements Serializable {
         while (it.hasNext()) {
 
             umowa = (Umowa) it.next();
-            System.out.println(Konsola.stalaSzerokosc("ID: " + poczatekEnumeracji.toString(), 10) + umowa.toString());
+            System.out.println(Konsola.stalaSzerokosc("ID: " + poczatekEnumeracji.toString(), 10) + umowa.toString()
+                    +" Podpisano z: "+Konsola.stalaSzerokosc(this.getImieNazwisko(),20));
             poczatekEnumeracji++;
         }
         return poczatekEnumeracji;
@@ -139,7 +140,7 @@ public class Autor implements Serializable {
             umowa = (Umowa) it.next();
             umowa.aktualizacnaAktywnosciUmowy(data);
             if (umowa.getCzyAktywna() && !umowa.getZakonczonaManualnie()) {
-                System.out.println(Konsola.stalaSzerokosc("ID: " + poczatekEnumeracji.toString(), 10) + umowa.toString());
+                System.out.println(Konsola.stalaSzerokosc("ID: " + poczatekEnumeracji.toString(), 10) + umowa.toString()+" Podpisano z: "+Konsola.stalaSzerokosc(this.getImieNazwisko(),20));
             }
             poczatekEnumeracji++;
         }

@@ -24,15 +24,15 @@ public final class Tygodnik extends PublikacjaCykliczna{
      * @throws ZaDuzyDzienTygodniaException wyjątek podnoszony, gdy jest podany dzień tygodnia jest za duży
      * @throws ZaMalyDzienTygodniaException wyjątek podnoszony, gdy jest podany dzień tygodnia jest za mały
      */
-    public Tygodnik(String tytul,DzienTygodnia dzienTygodnia) {
-        super(tytul);
+    public Tygodnik(String tytul,DzienTygodnia dzienTygodnia,String imieNazwiskoAutora) {
+        super(tytul,imieNazwiskoAutora);
 
         this.dzienTygodnia=dzienTygodnia;
     }
     @Override
     public String toString() {
-        return "Kategoria: Tygodnik              "+ Konsola.stalaSzerokosc("",20)+
-                " Tytuł: "+ Konsola.stalaSzerokosc(getTytul(),20);
-
+        return "Kategoria: Tygodnik        Autor: "+ Konsola.stalaSzerokosc(imieNazwiskoAutora,20)+
+                " Tytuł: "+ Konsola.stalaSzerokosc(getTytul(),20)+
+                " Dzien wydania: "+Konsola.stalaSzerokosc(dzienTygodnia.toString(),15);
     }
 }

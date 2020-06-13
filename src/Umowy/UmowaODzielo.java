@@ -11,7 +11,7 @@ import java.io.Serializable;
  * Klasa finalna dziedzicząca z klasy abstrakcyjnej {@link Umowa}.
  * @author MF
  */
-public final class UmowaODzielo extends Umowa{
+public final class UmowaODzielo extends Umowa {
     /**
      * Publikacja, na której wytworzenie została podpisana umowa
      */

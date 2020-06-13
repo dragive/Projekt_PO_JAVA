@@ -11,6 +11,7 @@ import java.io.Serializable;
 
 
 public abstract class Publikacja implements Serializable {
+    /*todo dodanie autora publikajci*/
     /**
      * Zmienna zawierajaca tytuł publikacji.
      */
@@ -18,11 +19,11 @@ public abstract class Publikacja implements Serializable {
     /**
      * Zmienna charakterystyczna dla każdego obiektu z klasy {@link Publikacja}.
      */
-    private int ID;
-    /**
+    /*private int ID;*/
+/**
      * Zmienna statyczna przeznaczona dla wyznaczania kolejnych ID.
-     */
-    static private int nextID;
+     *//*
+    static private int nextID;*/
 
     /**
      * Konstruktor abstrakcyjnej klasy {@link Publikacja}
@@ -30,10 +31,11 @@ public abstract class Publikacja implements Serializable {
      * @param tytul Tytuł danej publikacji.
      * @exception Publikacje.PublikacjaExceptions.ZaKrotkiTytulException Wyjątek występujący przy tytule, którego długość jest równa 0.
      */
-    public Publikacja (String tytul)// throws ZaKrotkiTytulException
+    public Publikacja (String tytul,String imieNazwiskoAutora)// throws ZaKrotkiTytulException
     {
             this.setTytul(tytul);
-            ID=++nextID; //#todo pobranie wczytanie id
+            this.imieNazwiskoAutora=imieNazwiskoAutora;
+            /*ID=++nextID; //#todo pobranie wczytanie id*/
     }
 
     /**
@@ -44,13 +46,13 @@ public abstract class Publikacja implements Serializable {
         return this.tytul;
     }
 
-    /**
+    /*
      * Metoda klasy abstrakcyjnej {@link Publikacja}
      * @return Zwraca charakterystyczny numer danej publikacji
      */
-    public int getID(){
+    /*public int getID(){
         return this.ID;
-    }
+    }*/
 
     /**
      * Metoda abstrakcyjnej klasy {@link Publikacja}
@@ -62,5 +64,9 @@ public abstract class Publikacja implements Serializable {
         //if(tytul.length()<1)throw new ZaKrotkiTytulException();
         this.tytul=tytul;
     }
+
+    public String getImieNazwiskoAutora(){return imieNazwiskoAutora;}
+    protected String imieNazwiskoAutora;/*todo dodanie do klas pochodnych obslugi autora*/
+
 
 }

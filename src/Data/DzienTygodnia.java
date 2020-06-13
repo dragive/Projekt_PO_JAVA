@@ -4,12 +4,14 @@ package Data;
 import Data.DzienTygodniaExceptions.ZaDuzyDzienTygodniaException;
 import Data.DzienTygodniaExceptions.ZaMalyDzienTygodniaException;
 
+import java.io.Serializable;
+
 
 /**
  * Klasa {@link DzienTygodnia} służy do przechowywania informacji kiedy dana publiakcja klasy {@link Publikacje.Tygodnik} ma ukazywać się.
  * @author MF
  */
-public class DzienTygodnia {
+public class DzienTygodnia implements Serializable {
     /**
      * Prywatne pole klsy {@link DzienTygodnia} do przechowywania informacji odnośnie danego dnia tygodnia.
      */

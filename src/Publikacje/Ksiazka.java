@@ -15,7 +15,7 @@ public class Ksiazka  extends Publikacja{
      * Zmienna przechowywująca informacje jakiego gatunku jest dana książka
      */
     private String gatunek;
-    private String imieNazwiskoAutora;
+
 
     /**
      * Konstruktor publiczny klasy Książka
@@ -26,15 +26,14 @@ public class Ksiazka  extends Publikacja{
      */
     public Ksiazka(String tytul, String gatunek, String imieNazwiskoAutora)// throws ZaKrotkiTytulException, ZaKrotkiGatunekException
     {
-        super(tytul);
-        this.imieNazwiskoAutora=imieNazwiskoAutora;
+        super(tytul,imieNazwiskoAutora);
+        //this.imieNazwiskoAutora=imieNazwiskoAutora;
         this.gatunek=gatunek;
     }
     public String getGatunek(){
         return  this.gatunek;
     }
 
-public String getImieNazwiskoAutora(){return imieNazwiskoAutora;}
 
     @Override
     public String toString() {

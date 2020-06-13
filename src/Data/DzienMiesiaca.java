@@ -3,11 +3,13 @@ package Data;
 import Data.DzienMiesiacaExceptions.ZaDuzyDzienMiesiacaException;
 import Data.DzienMiesiacaExceptions.ZaMalyDzienMiesiacaException;
 
+import java.io.Serializable;
+
 /**
  * Klasa {@link DzienMiesiaca} służy do przechowywania informacji kiedy dana publiakcja klasy {@link Publikacje.Miesiecznik} ma ukazywać się.
  * @author MF
  */
-public class DzienMiesiaca {
+public class DzienMiesiaca implements Serializable {
     /**
      * Prywatne pole klsy {@link DzienMiesiaca} do przechowywania informacji odnośnie danego dnia miesiąca.
      */

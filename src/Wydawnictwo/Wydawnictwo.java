@@ -116,6 +116,7 @@ Integer i =0;
         publikacje.add(dzielo);
     }
     public List<Publikacja> getPublikacje(){return publikacje;}
+
     public void wypiszPublikacje(){
         for(Object a : publikacje){
             System.out.println(a.toString());

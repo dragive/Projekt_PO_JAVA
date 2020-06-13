@@ -27,16 +27,16 @@ public final class Miesiecznik extends PublikacjaCykliczna{
      * @throws ZaMalyDzienMiesiacaException wyjątek podnoszony gdy jest za mały dzień miesiąca
      * @throws ZaDuzyDzienMiesiacaException wyjątek podnoszony gdy jest za duży dzień miesiąca
      */
-    public Miesiecznik(String tytul, DzienMiesiaca dzienMiesiaca)
+    public Miesiecznik(String tytul, DzienMiesiaca dzienMiesiaca,String imieNazwiskoAutora)
     {
-        super(tytul);
+        super(tytul,imieNazwiskoAutora);
         //dzienMiesiaca.sprawdzPoprawnoscDniaMiesiaca();
         this.dzienMiesiaca=dzienMiesiaca;
     }
     @Override
     public String toString() {
-        return "Kategoria: Miesiecznik            "+ Konsola.stalaSzerokosc("",20)+
-                " Tytuł: "+ Konsola.stalaSzerokosc(getTytul(),20);
-
+        return "Kategoria: Miesiecznik     Autor: "+ Konsola.stalaSzerokosc(imieNazwiskoAutora,20)+
+                " Tytuł: "+ Konsola.stalaSzerokosc(getTytul(),20)+
+                " Dzien wydania: "+Konsola.stalaSzerokosc(dzienMiesiaca.toString(),15);
     }
 }
