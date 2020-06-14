@@ -155,7 +155,7 @@ public class Autor implements Serializable {
                 ((Umowa) (it.next())).zakonczManualnie();
 
             }
-            it.next();
+            else it.next();
             poczatekEnumeracji++;
         }
         return poczatekEnumeracji;

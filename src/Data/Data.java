@@ -225,5 +225,14 @@ public class Data implements Serializable {
         else return 1;
 
     }
+    public int jestWiekszaOd(Data data){
+        if(this.rok>data.getRok())return 1;
+        if(this.rok<data.getRok())return -1;
+        if(this.miesiac>data.getMiesiac())return 1;
+        if(this.miesiac<data.getMiesiac())return -1;
+        if(this.dzien>data.getDzien())return 1;
+        if(this.dzien<data.getDzien())return -1;
+        return  0;
+    }
 
 }

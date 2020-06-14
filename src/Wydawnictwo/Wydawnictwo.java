@@ -8,6 +8,7 @@ import java.util.List;
 import Data.Data;
 import Konsola.Konsola;
 import Publikacje.Publikacja;
+import Umowy.Umowa;
 
 
 public class Wydawnictwo implements Serializable {
@@ -49,7 +50,7 @@ public class Wydawnictwo implements Serializable {
     public Data getData(){
         return data;
     }
-    public void wypiszAutorzy(){
+    public void wypiszAutor(){
         if (autorzy.size()==0){
             System.out.println("\n\tW wydawnictwie nie ma zapisanych żadnych autorów.\n");
         }
@@ -76,6 +77,7 @@ public class Wydawnictwo implements Serializable {
             autor = (Autor) it.next();
             id=autor.wypiszKazdaUmowe((id));
         }
+        if(id==0){System.out.println("\nNie ma żadnych aktywnych umów.\n");}
     }
     public Integer iloscWszystkichUmow(){
         Integer ilosc=0;
@@ -99,6 +101,7 @@ public class Wydawnictwo implements Serializable {
             autor = (Autor) it.next();
             id=autor.wypiszAktywnaUmowe((id),data);
         }
+        if(id==0){System.out.println("\nNie ma żadnych aktywnych umów.\n");}
     }
     public void zakonczUmowe(Integer ID){
 
@@ -115,9 +118,34 @@ Integer i =0;
     public void dodajPublikacje(Publikacja dzielo){
         publikacje.add(dzielo);
     }
+    public Integer getIDAutora(String imieNazwisko){
+        Integer ID=0;
+        for(Autor a:this.autorzy){
+            if(a.getImieNazwisko().equals(imieNazwisko)){return ID;}
+            ID++;
+        }
+        return -1;
+    }
+    public void dodajUmoweDoAutora(Umowa umowa, String imieNazwisko){
+        Integer ID=getIDAutora(imieNazwisko);
+        Autor a;
+        if(ID==-1){
+            a=new Autor(imieNazwisko);
+            a.dodajUmowe(umowa);
+        }
+        else{
+            Iterator it = autorzy.iterator();
+            while(it.hasNext()&&ID-->0){
+                it.next();
+            }
+            ((Autor) it.next()).dodajUmowe(umowa);
+        }
+
+    }
     public List<Publikacja> getPublikacje(){return publikacje;}
 
     public void wypiszPublikacje(){
+        if(publikacje.size()==0){System.out.println("\nW wydawnictwie nie ma zapisanych żadnych publikacji.\n");return;}
         for(Object a : publikacje){
             System.out.println(a.toString());
         }

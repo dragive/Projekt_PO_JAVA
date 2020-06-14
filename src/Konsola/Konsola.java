@@ -74,7 +74,7 @@ public class Konsola implements Serializable{
                 if(true)throw new wyjscieZMenuThrowable();
                 break;
             case "1":
-                wydawnictwo.wypiszAutorzy();
+                wypiszAutorow();
                 break;
             case "2":
                 dodajaAutora();
@@ -194,10 +194,10 @@ public class Konsola implements Serializable{
     }
     public Publikacja utworzPublikacje(){
         Publikacja ret=null;
-        String opcje="" +
-                "[1] <- dodanie Książki\n" +
-                "[2] <- dodanie Tygodnika\n" +
-                "[3] <- dodanie Miesiecznika\n\n";
+        String opcje="\n" +
+                "[1] <- Utworzenie Książki.\n" +
+                "[2] <- Utworzenie Tygodnika.\n" +
+                "[3] <- Utworzenie Miesiecznika.\n\n";
         String komunikatOBledzie="Podano nieprawidłową wartość. Proszę wybrać jedną z powyższych opcji.\n";
         String cmd;
         boolean wystapilBlad;
@@ -267,7 +267,13 @@ public class Konsola implements Serializable{
         }
     }
     void zarzadzanieUmowami()throws wyjscieZMenuThrowable{
-        String trescMenu="\n[0] <- Wyjście do menu głównego\n[1] <- Wypisanie szystkich umów.\n[2] <- Wypisanie szystkich aktywych umów.\n[3] <- Dodaj umowe.\n[4] <- Usuniecie umowy.\n\nWpisz numer opcji i zatwierdź \"enterem\"";
+        String trescMenu="\n" +
+                "[0] <- Wyjście do menu głównego.\n" +
+                "[1] <- Wypisanie szystkich umów.\n" +
+                "[2] <- Wypisanie szystkich aktywych umów.\n" +
+                "[3] <- Dodaj umowe.\n[4] <- Zakonczenie umowy.\n" +
+                "\n" +
+                "Wpisz numer opcji i zatwierdź \"enterem\"";
         while(true){
             silnikMenuUmowy(menu(trescMenu,"zarządzanie umowami"));
         }
@@ -322,7 +328,7 @@ public class Konsola implements Serializable{
                     dodajUmoweOPrace();
                     break;
                 case "2":
-                    dodajUmoweODzielo();
+                    dodajUmoweODzielo();//#todo dddddddddddddddddddddddddddddd
                     break;
                 case "0":
                     if(true)throw new wyjscieZMenuThrowable();
@@ -335,18 +341,7 @@ public class Konsola implements Serializable{
         }while(wystapilBlad);
     }
     void dodajUmoweOPrace(){
-        //do ktorego autora ma byc przypisana
-        /*String wiadomosc="Proszę podać ID autora, z którym podspisywana jest umowa: ";
-        String komunikatOBledzie="Nie istnieje autor o takim ID.";
 
-        Integer ID;
-        boolean ok=true;
-        do {
-            if(!ok){System.out.println(komunikatOBledzie);}
-            ID = pobierzInteger(wiadomosc, komunikatOBledzie+" "+wiadomosc);
-            if(ID<wydawnictwo.autorzy.size()&&ID>-1)ok=true;else ok=false;
-        }while(!ok);
-        //dodanie konkretnej umowy*/
         String wiadomosc="Proszę podać imię i nazwisko autora, z którym podspisywana jest umowa, i zatwierdź \"enterem\": ";
         String komunikatOBledzie="Imię i nazwisko autora jest za krótkie.";
 
@@ -361,17 +356,18 @@ public class Konsola implements Serializable{
         if(!sprawdzCzyjestZapisanyAutor(imieNazwisko))wydawnictwo.dodajAutora(new Autor(imieNazwisko));
         Data dataR=null;//data rozpoczecia
         Data dataZ=null;//data zakonczenia
-        System.out.println("Podaj datę rozpoczęcia umowy.");
-        dataR=pobierzDate();
-        System.out.println("Podaj datę zakonczenia umowy.");
-        dataZ=pobierzDate();
-
-        Iterator it = wydawnictwo.autorzy.iterator(),itPomocniczy=null;
-        while(it.hasNext()){
-            itPomocniczy=it;
-            if(imieNazwisko.equals(( (Autor) (it.next())).getImieNazwisko() ) )break;
+        ok=true;
+        while(true) {
+            if(!ok)System.out.println("\nData konca jest wcześniejsza niż data rozpoczęcia umowy. Proszę wprowadzić ponownie dane.\n");
+            System.out.println("Podaj datę rozpoczęcia umowy.");
+            dataR = pobierzDate();
+            System.out.println("Podaj datę zakonczenia umowy.");//#todo dodanie wyjustowania
+            dataZ = pobierzDate();
+            if(dataR.jestWiekszaOd(dataZ)>0)ok=false;
+            if(ok)break;
         }
-        ((Autor) itPomocniczy.next()).dodajUmowe(new UmowaOPrace(dataR,dataZ));
+
+        wydawnictwo.dodajUmoweDoAutora(new UmowaOPrace(dataR,dataZ),imieNazwisko);
 
     }
     void dodajUmoweODzielo(){
@@ -404,20 +400,29 @@ public class Konsola implements Serializable{
 
         Data dataR=null;//data rozpoczecia
         Data dataZ=null;//data zakonczenia
-        System.out.println("Podaj datę rozpoczęcia umowy.");
-        dataR=pobierzDate();
-        System.out.println("Podaj datę zakonczenia umowy.");
-        dataZ=pobierzDate();
+        ok=true;
+        while(true) {
+            if(!ok)System.out.println("\nData konca jest wcześniejsza niż data rozpoczęcia umowy. Proszę wprowadzić ponownie dane.\n");
+            System.out.println("Podaj datę rozpoczęcia umowy.");
+            dataR = pobierzDate();
+            System.out.println("Podaj datę zakonczenia umowy.");//#todo dodanie wyjustowania
+            dataZ = pobierzDate();
+            if(dataR.jestWiekszaOd(dataZ)>0)ok=false;
+            if(ok)break;
+        }
 
-        publ = utworzPublikacje(); //tod dodanie publikacji dodanie wyboru czy utworzyc publikacje czy wykorzystac wczesniej utworzona
-
-
-        Iterator it = wydawnictwo.autorzy.iterator(),itPomocniczy=null;
+        do{System.out.println("\nWybierz typ i podaj dane do utworzenia publikacji.\n");publ = utworzPublikacje();} //tod dodanie publikacji dodanie wyboru czy utworzyc publikacje czy wykorzystac wczesniej utworzona
+        while(publ!=null);
+/*
+        Iterator it = wydawnictwo.autorzy.iterator(),itPomocniczy=it;
         while(it.hasNext()){
             itPomocniczy=it;
             if(imieNazwisko.equals(( (Autor) (it.next())).getImieNazwisko() ) )break;
         }
-            ((Autor) itPomocniczy.next()).dodajUmowe(new UmowaODzielo((float) Math.round(kwota*100)/100,dataR,dataZ,publ));
+            ((Autor) itPomocniczy.next()).dodajUmowe(new UmowaODzielo((float) Math.round(kwota*100)/100,dataR,dataZ,publ));*/
+        wydawnictwo.dodajPublikacje(publ);
+        wydawnictwo.dodajUmoweDoAutora(new UmowaODzielo((float) Math.round(kwota*100)/100,dataR,dataZ,publ),imieNazwisko);
+
     }
     void zakonczUmowe(){
         String message = "Podaj ID publikacji do usuniecia: ";
@@ -451,6 +456,8 @@ public class Konsola implements Serializable{
         wydawnictwo.dodajAutora(new Autor(imienazwisko));
     }
     private void usunAutora(){
+        if(wydawnictwo.getAutorzy().size()==0){System.out.println("\nNie ma żadnego autora do usunięcia.\n\n");return;}
+        wypiszAutorow();
         System.out.print("Podaj id autora by go usunąć: ");
         int maxIdautora=wydawnictwo.autorzy.size();
         if(maxIdautora==0){System.out.println("Nie można usunąć żadnego autora, z powodu braku autorów.\n");return;}
@@ -484,6 +491,7 @@ public class Konsola implements Serializable{
         if(!usunieto) System.out.println("\nNie usunięto żadnego autora, ponieważ nie ma takiego autora o takim ID.");
         else          System.out.println("\nPoprawnie usunięto autora.");
     }
+    public void wypiszAutorow(){wydawnictwo.wypiszAutor();}
 
     public boolean sprawdzCzyjestZapisanyAutor(String imieNazwisko){
         List<Autor> lista = wydawnictwo.getAutorzy();
