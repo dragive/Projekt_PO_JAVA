@@ -170,7 +170,10 @@ public class Konsola implements Serializable{
             case "2":
                 zakupSklep();//#todo
                 break;
-            case "3":
+            case"3":
+                wypisaniePublikacjiZCenaIID();
+                break;
+            case "4":
                 definiowowanieCenyPublikacji();
             default:
                 nieznanaKomenda(cmd);
@@ -179,7 +182,7 @@ public class Konsola implements Serializable{
     }
 
     private void definiowowanieCenyPublikacji() {
-        /*todo definiowanie ceny publikacji w sklepie*/
+        wydawnictwo.ustawCenePublikacji();
     }
 
     public void koniecProgramu(){
@@ -328,6 +331,9 @@ public class Konsola implements Serializable{
 
     public void wyswietlStanSklepu(){ wypiszStanMagazynu();}
     public void zakupSklep(){}
+    public void wypisaniePublikacjiZCenaIID(){
+        wydawnictwo.wypisaniePublikacjiZCenaIID();
+    }
 
     void zarzadzanieAutorami()throws wyjscieZMenuThrowable{
         String trescMenu="\n[0] <- Wyjście do menu głównego\n[1] <- Wypisanie autorów.\n[2] <- Dodanie autora\n[3] <- Usunięcie autora.\n\nWpisz numer opcji i zatwierdź \"enterem\"";
@@ -375,12 +381,15 @@ public class Konsola implements Serializable{
     void zarzadzanieDzialemHandlowym()throws wyjscieZMenuThrowable{
         String trescMenu="\n" +
                 "[0] <- Wyjście do menu głównego\n" +
-                "[1] <- Wyświetlenie publikacji gotowych do sprzedarzy.\n" +
+                "[1] <- Wyświetlenie ilości publikacji gotowych do sprzedarzy.\n" +
                 "[2] <- Wykonanie zakupu w sklepie.\n" +
+                "[3] <- Wypisanie cen przypisanych do publikacji.\n" +
+                "[4] <- Ustalanie ceny publikacji.\n" +
+
                 "\n" +
                 "Wpisz numer opcji i zatwierdź \"enterem\"";
         while(true){
-            silnikMenuDzialHandlowy(menu(trescMenu,"zarządzanie sklepem"));
+            silnikMenuDzialHandlowy(menu(trescMenu,"zarządzanie sklepem i działem handlowym"));
         }
     }
     void dodajUmowe()throws wyjscieZMenuThrowable{
@@ -401,7 +410,7 @@ public class Konsola implements Serializable{
                     dodajUmoweOPrace();
                     break;
                 case "2":
-                    dodajUmoweODzielo();//#todo dddddddddddddddddddddddddddddd
+                    dodajUmoweODzielo();
                     break;
                 case "0":
                     if(true)throw new wyjscieZMenuThrowable();

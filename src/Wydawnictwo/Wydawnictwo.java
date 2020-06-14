@@ -14,6 +14,8 @@ import Publikacje.Publikacja;
 import Umowy.Umowa;
 import Wydawnictwo.KlasyPomocnicze.Pair;
 
+import javax.swing.*;
+
 
 public class Wydawnictwo implements Serializable {
     private Magazyn magazyn;
@@ -190,5 +192,42 @@ Integer i =0;
 
     public void wypiszStanMagazynu() {
         magazyn.wypiszStanMagazynu(publikacje);
+    }
+
+    public void ustawCenePublikacji(){
+        wypiszPublikacjeZID();
+        Integer dane;
+        boolean ok;
+        Float cena;
+
+        String mess=("Podaj ID publikacji dla której chcesz ustalić cene: ");
+        String komunikatOBledzie="\nNie istnnieje publikacja o takim ID. Prosze wprowadzić inne dane.\n";
+        String mess1=("Podaj cene publikacji: ");
+        String komunikatOBledzie1="\nPodawana jest nieprawidlowa cena.\n";
+
+        ok=true;
+        do {
+            if(!ok)System.out.println(komunikatOBledzie);
+            ok=true;
+            dane=Konsola.pobierzInteger(mess, komunikatOBledzie + mess);
+            if(dane<0||dane>=publikacje.size())ok=false;
+        }while(!ok);
+
+        Iterator it = publikacje.iterator();
+        while(dane>0&&it.hasNext()){dane--; it.next();}
+
+
+        ok=true;
+        do {
+            if(!ok)System.out.println(komunikatOBledzie1);
+            ok=true;
+            cena =Konsola.pobierzFloat(mess1, komunikatOBledzie1 + mess1);
+            if(cena<0)ok=false;
+        }while(!ok);
+        sklep.setCena((Publikacja)it.next(),((float) Math.round((cena*100)/100)));
+    }
+
+    public void wypisaniePublikacjiZCenaIID() {
+        sklep.wypisaniePublikacjiZCenaIID(publikacje);
     }
 }
