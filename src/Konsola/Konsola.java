@@ -30,7 +30,8 @@ public class Konsola implements Serializable{
                 "[1] <- Zarządzanie autorami.\n" +
                 "[2] <- Zarządzanie umowami.\n" +
                 "[3] <- Zarządzanie publikacjami.\n" +
-                "*[4] <- Zarządzanie dzialem druku.\n" +
+                "[4] <- Zarządzanie dzialem druku.\n" +
+                "[5] <- Zarządzanie sklepem.\n" +
                 "\n" +
                 "Wpisz numer opcji i zatwierdź \"enterem\"";
         while(true)silnikMenuGlowne(menu(trescMenu,"menu główne"));
@@ -57,7 +58,8 @@ public class Konsola implements Serializable{
                 try{zarzadzanieDzialemDruku();}catch (wyjscieZMenuThrowable th){}
                 break;
             case "5":
-                try{zarzadzanieSklepem();}catch (wyjscieZMenuThrowable th){}
+                try{
+                    zarzadzanieDzialemHandlowym();}catch (wyjscieZMenuThrowable th){}
                 break;
             case "z":
                 zapisObiektuDoPliku(wydawnictwo,"wyd.dat");
@@ -139,17 +141,25 @@ public class Konsola implements Serializable{
                 dodajZlecenieDruku();//#todo
                 break;
             case "2":
-                wypiszZleceniaDruku();//#todo
+                wydajPolecenieWydruku(); //#todo
                 break;
             case "3":
-                drukujZlecenieDruku(); //#todo
+                wypiszZleceniaDruku();
+                break;
+            case "4":
+                wypiszStanMagazynu();
                 break;
             default:
                 nieznanaKomenda(cmd);
                 break;
         }
     }
-    private void silnikMenuSklep(String cmd) throws wyjscieZMenuThrowable {
+
+    private void wypiszStanMagazynu() {
+        wydawnictwo.wypiszStanMagazynu();
+    }
+
+    private void silnikMenuDzialHandlowy(String cmd) throws wyjscieZMenuThrowable {
         switch (cmd){
             case "0":
                 if(true)throw new wyjscieZMenuThrowable();
@@ -160,11 +170,18 @@ public class Konsola implements Serializable{
             case "2":
                 zakupSklep();//#todo
                 break;
+            case "3":
+                definiowowanieCenyPublikacji();
             default:
                 nieznanaKomenda(cmd);
                 break;
         }
     }
+
+    private void definiowowanieCenyPublikacji() {
+        /*todo definiowanie ceny publikacji w sklepie*/
+    }
+
     public void koniecProgramu(){
         zapisObiektuDoPliku(wydawnictwo,"wyd.dat");
         System.exit(0);
@@ -189,8 +206,12 @@ public class Konsola implements Serializable{
         return scanner.nextLine();
     }
 
-    public void wypiszPublikacje(){
+    public void wypiszPublikacje() {
         wydawnictwo.wypiszPublikacje();
+    }
+    public void wypiszPublikacjeZID() {
+
+        wydawnictwo.wypiszPublikacjeZID();
     }
     public Publikacja utworzPublikacje(){
         Publikacja ret=null;
@@ -253,11 +274,59 @@ public class Konsola implements Serializable{
         return (new Miesiecznik(tytul,dt,imieNazwisko));
     }
 
-    public void dodajZlecenieDruku(){}
-    public void wypiszZleceniaDruku(){}
-    public void drukujZlecenieDruku(){}
+    public void dodajZlecenieDruku(){
+        if(wydawnictwo.getPublikacje().size()==0){System.out.println("\nW wydawnictwie nie ma zapisanych publiakcji, więc nie można wybrać publikacji do druku\n" +
+                "Należy dodać publikacje i następnie wydać zlecenie druku\n");return;}
+        String mess="\nPodaj ID publikacji: ";
+        String komunikatOBledzie="Nie ma takiej publikacji o takim ID. ";
+        //System.out.println(mess);
+        Integer ID;
+        wypiszPublikacjeZID();
+        boolean ok=true;
+        do{
+            if(!ok)System.out.println(komunikatOBledzie);
+            ok=true;
+            ID=pobierzInteger(mess,komunikatOBledzie+mess);
+            if(ID<0||ID>=wydawnictwo.getPublikacje().size())ok=false;
+        }while(!ok);
 
-    public void wyswietlStanSklepu(){}
+        Publikacja publ = wydawnictwo.getPublikacja(ID);
+
+        mess="Podaj ilość do wydrukowania publikacji "+publ.getTytul()+": ";
+        komunikatOBledzie="Ilość musi być większa od 0. ";
+        Integer ilosc;
+        ok=true;
+        do{
+            if(!ok)System.out.println(komunikatOBledzie);
+            ok=true;
+            ilosc=pobierzInteger(mess,komunikatOBledzie+mess);
+            if(ilosc<=0)ok=false;
+        }while(!ok);
+
+        mess="Wybierz drukarnie, w której ma być drukowana publikacja.\n" +
+                "ID: [1] Możliwość drukowania wszystkich publikacji.\n" +
+                "ID: [2] Możliwość drukowania wszystkich publikacji za wyjątkiem ksiązek będących albumami.\n" +
+                "ID: [3] Możliwość drukowania wszystkich publikacji za wyjątkiem ksiązek będących albumami.\n" +
+                "\n" +
+                "Podaj ID drukarni: ";
+        komunikatOBledzie="Nie można wydrukować publikacji "+publ.getTytul()+" w tej drukarni tej publikacji lub nie istnieje taka drukarnia o takim ID. ";
+        Integer drukarnia=0;
+        ok=true;
+        do{
+            if(!ok)System.out.println(komunikatOBledzie);
+            ok=true;
+            drukarnia=pobierzInteger(mess,komunikatOBledzie+mess);
+            if(drukarnia<1||drukarnia>=3||(publ instanceof Ksiazka &&drukarnia==1 && ((Ksiazka)publ).getGatunek().toLowerCase().contains("album")))ok=false;
+        }while(!ok);
+
+        wydawnictwo.dodajZlecenieDrukuPublikacji(publ,ilosc,drukarnia-1);
+    }
+    public void wydajPolecenieWydruku(){
+        wydawnictwo.wydajPolecenieDruku();
+    }
+    public void wypiszZleceniaDruku(){wydawnictwo.wypiszZleceniaDruku();}
+
+    public void wyswietlStanSklepu(){ wypiszStanMagazynu();}
     public void zakupSklep(){}
 
     void zarzadzanieAutorami()throws wyjscieZMenuThrowable{
@@ -293,21 +362,25 @@ public class Konsola implements Serializable{
     void zarzadzanieDzialemDruku()throws wyjscieZMenuThrowable{
         String trescMenu="\n" +
                 "[0] <- Wyjście do menu głównego\n" +
-                "[1] <- Wypisanie szystkich umów.\n" +
+                "[1] <- Zlecenie druku danej ilości jednej z zapisanych publikacji.\n" +
+                "[2] <- Polecenie wydruku.\n" +
+                "[3] <- Wypisanie publikacji czekających do druku.\n" +
+                "[4] <- Wypisanie zawartości magazynu z wydrukowanymi publikacjami.\n" +
                 "\n" +
                 "Wpisz numer opcji i zatwierdź \"enterem\"";
         while(true){
             silnikMenuDzialDruku(menu(trescMenu,"zarządzanie dzialem druku"));
         }
     }
-    void zarzadzanieSklepem()throws wyjscieZMenuThrowable{
+    void zarzadzanieDzialemHandlowym()throws wyjscieZMenuThrowable{
         String trescMenu="\n" +
                 "[0] <- Wyjście do menu głównego\n" +
-                "[1] <- Wypisanie szystkich umów.\n" +
+                "[1] <- Wyświetlenie publikacji gotowych do sprzedarzy.\n" +
+                "[2] <- Wykonanie zakupu w sklepie.\n" +
                 "\n" +
                 "Wpisz numer opcji i zatwierdź \"enterem\"";
         while(true){
-            silnikMenuSklep(menu(trescMenu,"zarządzanie sklepem"));
+            silnikMenuDzialHandlowy(menu(trescMenu,"zarządzanie sklepem"));
         }
     }
     void dodajUmowe()throws wyjscieZMenuThrowable{

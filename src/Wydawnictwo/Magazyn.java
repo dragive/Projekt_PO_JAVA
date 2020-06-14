@@ -1,27 +1,54 @@
 package Wydawnictwo;
 
 
+import Konsola.Konsola;
 import Publikacje.Publikacja;
 import Wydawnictwo.KlasyPomocnicze.Pair;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 
 public class Magazyn  implements Serializable {
-    private List<Pair < Publikacja, Integer>> publikacje;
+    private Map<Publikacja, Integer> publikacje;
 
     public Magazyn(){
-        publikacje = new ArrayList<Pair < Publikacja, Integer>>();
+        publikacje = new HashMap<Publikacja, Integer>();
     }
-    public void dodajPublikacje(Publikacja dzielo,Integer ilosc){
-        publikacje.add(new Pair(dzielo,ilosc));
-    }
-    public void dodajPublikacje(Publikacja dzielo,int ID){
-        this.dodajPublikacje(dzielo,(Integer)ID);
-    }
-    public void realizacjaZakupu(Publikacja dzielo,int ilosc){
 
+    public void dodajPublikacje(Publikacja dzielo,Integer ilosc){
+
+        if (publikacje.containsKey(dzielo)) {
+            publikacje.put(dzielo,ilosc);
+        }
+        publikacje.put(dzielo,ilosc+publikacje.get(dzielo));
     }
+    public Integer sprawdzIloscPublikacjiWMagazynie(Publikacja klucz){
+        if(publikacje.get(klucz)==null)publikacje.put(klucz,0);
+        return publikacje.get(klucz);
+    }
+
+    public void wypiszStanMagazynu(List<Publikacja> listaPublikacjiWWydawnictwie){
+        if(listaPublikacjiWWydawnictwie.size()==0){System.out.println("\nW magazynie nie ma żadnych książek, " +
+                "ponieważ w wydawnictwie nie ma żadnych zapisanych książek.\n");return;}
+        for(Publikacja element : listaPublikacjiWWydawnictwie){
+            System.out.println("Ilość w magazynie: "+
+                    Konsola.stalaSzerokosc(sprawdzIloscPublikacjiWMagazynie(element).toString(),6)
+                    +element.toString());
+        }
+    }
+
+    public void przyjmijPublikacjeZWydruku(Vector<Pair<Publikacja,Integer>> zWydruku){
+        Publikacja p;
+        Integer l;
+        for(int i=0;i<zWydruku.size();i++){
+            p=zWydruku.get(i).getFirst();
+            l=zWydruku.get(i).getSecond();
+            dodajPublikacje(p,l);
+        }
+    }
+
 
 }

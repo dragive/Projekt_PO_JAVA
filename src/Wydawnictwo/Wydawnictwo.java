@@ -2,13 +2,17 @@ package Wydawnictwo;
 import Autor.*;
 
 import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Vector;
+
 import Data.Data;
 import Konsola.Konsola;
 import Publikacje.Publikacja;
 import Umowy.Umowa;
+import Wydawnictwo.KlasyPomocnicze.Pair;
 
 
 public class Wydawnictwo implements Serializable {
@@ -29,7 +33,7 @@ public class Wydawnictwo implements Serializable {
     public void dodajAutora(Autor tworca){
         autorzy.add(tworca);
     }
-    public void usunAutora(Autor tworca){
+    /*public void usunAutora(Autor tworca){
         Iterator it = this.autorzy.iterator();
         while(it.hasNext()){
             if(it.next().equals(tworca))
@@ -37,7 +41,7 @@ public class Wydawnictwo implements Serializable {
                 it.remove();
             }
         }
-    }
+    }*/
     public void kolejnyDzien(){
         data.kolejnyDzien();
         Iterator it= autorzy.iterator();
@@ -146,8 +150,45 @@ Integer i =0;
 
     public void wypiszPublikacje(){
         if(publikacje.size()==0){System.out.println("\nW wydawnictwie nie ma zapisanych żadnych publikacji.\n");return;}
+
         for(Object a : publikacje){
             System.out.println(a.toString());
         }
+    }
+    public void wypiszPublikacjeZID(){
+        if(publikacje.size()==0){System.out.println("\nW wydawnictwie nie ma zapisanych żadnych publikacji.\n");return;}
+        Integer i=0;
+        for(Object a : publikacje){
+            System.out.println("ID: "+Konsola.stalaSzerokosc(i.toString(),4)+a.toString());
+            i++;
+        }
+    }
+    public Publikacja getPublikacja(Integer ID){
+        Iterator it=publikacje.iterator();
+        while(it.hasNext()&&(ID)>0){
+            ID--;
+            it.next();
+        }
+        return (Publikacja) it.next();
+    }
+
+    public void dodajZlecenieDrukuPublikacji(Publikacja publikacja,Integer ilosc,Integer drukarnia){
+        druk.dodajZlecenieDrukuPublikacji(publikacja,ilosc,drukarnia);
+    }
+    public void wydajPolecenieDruku(){
+
+        Vector <Pair<Publikacja,Integer>> vector= druk.wydajPolecenieWydruku();
+        Integer ret = vector.size();
+        magazyn.przyjmijPublikacjeZWydruku(vector);
+
+        //return ret;
+    }
+
+    public void wypiszZleceniaDruku() {
+        druk.wypiszZleceniaDruku();
+    }
+
+    public void wypiszStanMagazynu() {
+        magazyn.wypiszStanMagazynu(publikacje);
     }
 }

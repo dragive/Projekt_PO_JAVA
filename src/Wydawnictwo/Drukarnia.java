@@ -6,26 +6,34 @@ import Wydawnictwo.KlasyPomocnicze.Pair;
 import java.io.Serializable;
 import java.net.Inet4Address;
 import java.util.Queue;
+import java.util.Vector;
 
 public class Drukarnia implements Serializable {
-    private Queue<Pair<Publikacja,Integer>> kolejkaDrukowania;
+    private Vector<Pair<Publikacja,Integer>> kolejkaDrukowania;
     private boolean drukAlbumow;
-    /*private boolean drukCzasopism;
-    private boolean druk;*/
 
     public Drukarnia(boolean drukAlbumow){
-        this.drukAlbumow=drukAlbumow;
+        kolejkaDrukowania=new Vector<>();this.drukAlbumow=drukAlbumow;
     }
-    public void zamow(Publikacja dzielo, int ilosc){
+    public void zlozZamowienieNaDruk(Publikacja dzielo, Integer ilosc){
         kolejkaDrukowania.add(new Pair(dzielo,ilosc));
     }
-    public Pair<Publikacja,Integer> drukuj(){
-        Pair<Publikacja,Integer> wydrukowane=kolejkaDrukowania.poll();
+/*    public Pair<Publikacja,Integer> drukuj(){
+        Pair<Publikacja,Integer> wydrukowane=kolejkaDrukowania.();
         return wydrukowane;
-    }
+    }*/
     public boolean getDrukAlbumow(){
         return this.drukAlbumow;
     }
 
+    public Vector<Pair<Publikacja,Integer>> wydajPolecenieWydruku(){
+        Vector<Pair<Publikacja,Integer>> ret;
+        ret=kolejkaDrukowania;
+        kolejkaDrukowania.clear();
+        return ret;
+    }
 
+    public Vector<Pair<Publikacja, Integer>> getKolejkaDrukowania() {
+        return kolejkaDrukowania;
+    }
 }
