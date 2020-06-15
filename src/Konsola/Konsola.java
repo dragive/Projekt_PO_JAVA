@@ -304,7 +304,7 @@ public class Konsola implements Serializable{
 
             }
             if(ret==null)wystapilBlad=true; else wystapilBlad=false;
-            System.out.print(ret);
+
         }while(wystapilBlad);
         return ret;
     }
@@ -330,7 +330,7 @@ public class Konsola implements Serializable{
     public Tygodnik utworzPublikacjeTygodnik(){
 
         String tytul=pobierzString("Podaj tytuł tygodnika: ","Za krótki tytuł tygodnika. Podaj dłuższy tytuł miesiecznika: ",true);
-        String imieNazwisko=pobierzString("Podaj imię i nazwisko autora Tygodznika: ","Wczytany ciąg znaków nie może być imieniem i nazwiskiem" +
+        String imieNazwisko=pobierzString("Podaj imię i nazwisko autora Tygodnika: ","Wczytany ciąg znaków nie może być imieniem i nazwiskiem" +
                 " autora, bo jest zakrótki ksiązki. Podaj ponownie imie i nazwisko autora Tygodnika: ",true);
         System.out.println("Podaj dzień druku tygodnika.");
         DzienTygodnia dt = pobierzDzienTygodnia();
@@ -356,7 +356,7 @@ public class Konsola implements Serializable{
      * Metoda służąca do wygenerowania formularzu dla użytkownika do złożenia zlecenia druku
      */
     public void dodajZlecenieDruku(){
-        if(wydawnictwo.getPublikacje().size()==0){System.out.println("\nW wydawnictwie nie ma zapisanych publiakcji, więc nie można wybrać publikacji do druku\n" +
+        if(wydawnictwo.getPublikacje().size()==0){System.out.println("\nW wydawnictwie nie ma zapisanych publikacji, więc nie można wybrać publikacji do druku\n" +
                 "Należy dodać publikacje i następnie wydać zlecenie druku\n");return;}
         String mess="\nPodaj ID publikacji: ";
         String komunikatOBledzie="Nie ma takiej publikacji o takim ID. ";
@@ -736,7 +736,7 @@ public class Konsola implements Serializable{
             if(!ok){System.out.println(komunikat);}
             ok=true;
             ID=pobierzInteger(message,komunikat+message);
-            if(ID<wydawnictwo.iloscWszystkichUmow()&&ID>0)
+            if(ID>=wydawnictwo.iloscWszystkichUmow()&&ID>0)
                 ok=false;
 
         }while(!ok);
@@ -1054,7 +1054,7 @@ return false;
 
                         if (wystapilBlad) {
                             cmd = menu("Niepoprawna wartosc dnia tygodnia.\nProszę wpisać wartosc od 1 (poniedziałek) do 7 (niedziela) włącznie: ");
-                        } else cmd = menu("Proszę podać wartość dla dnia tygodnia od 1 (poniedziałek) do 7 (niedziela): ");
+                        } else cmd = menu("Proszę podać wartość liczbową dla dnia tygodnia od 1 (poniedziałek) do 7 (niedziela): ");
                          dzien = Integer.parseInt(cmd);
                          DzienTygodnia.sprawdzPoprawnoscDniaTygodnia(dzien);
                         wystapilBlad = false;
