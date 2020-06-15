@@ -10,12 +10,19 @@ import jdk.swing.interop.DispatcherWrapper;
 import java.io.Serializable;
 import java.util.*;
 
-
+/**
+ * Klasa obslugująca dział druku
+ */
 public class DzialDruku  implements Serializable {
+    /**
+     * Pole przechowujące obiekty Drukarnia w Vectorze
+     */
     private Vector<Drukarnia> drukarnie;
 
 
-
+    /**
+     * Publiczny konstruktor klasy DzialDruku
+     */
     public DzialDruku(){
         drukarnie=new Vector<Drukarnia>();
         drukarnie.add(new Drukarnia(true));
@@ -23,11 +30,24 @@ public class DzialDruku  implements Serializable {
         drukarnie.add(new Drukarnia(false));
     }
 
+    /**
+     * Dodanie zlecenia druku danej publikacji  i przypisanie do konkretnej drukarni
+     * @param publikacja Publikacja która ma być wydrukowana
+     * @param ilosc nakład drukowanego dzieła
+     * @param drukarnia ID drukarni, do której ma być przypisane zlecenie
+     */
     public void dodajZlecenieDrukuPublikacji(Publikacja publikacja,Integer ilosc,Integer drukarnia){
         Drukarnia d =drukarnie.get(drukarnia);
         d.zlozZamowienieNaDruk(publikacja,ilosc);
         drukarnie.set(drukarnia,d);
     }
+
+    /**
+     * Statyczna metoda służąca do dodawania 2 wektorów z wydrukowanymi publikacjami by nie potrzebnie nie duplikować danych
+     * @param vector1 wektor z publiakcjami i ich wydrukowanym nakladem nr 1
+     * @param vector2 wektor z publiakcjami i ich wydrukowanym nakladem nr 2
+     * @return
+     */
     public static Vector<Pair<Publikacja,Integer>> ujednolicenieVectoraZWydrukowanymiPublikacjami(Vector<Pair<Publikacja,Integer>> vector1, Vector<Pair<Publikacja,Integer>> vector2){
         Map<Publikacja, Integer> mapa= new HashMap<Publikacja,Integer>();
         Vector<Pair<Publikacja,Integer>> vector= new Vector<Pair<Publikacja,Integer>> ();
@@ -54,6 +74,11 @@ public class DzialDruku  implements Serializable {
 
         return vector;
     }
+
+    /**
+     * Wydaje polecenie do wszystkich drukarni, by wydrukowaly publikacje zapisane w kolejkach
+     * @return Zwraca wydrukowane publikacje i ich liczby
+     */
     public Vector<Pair<Publikacja,Integer>> wydajPolecenieWydruku(){
 
         Vector <Pair<Publikacja,Integer>> vector ;
@@ -74,7 +99,9 @@ public class DzialDruku  implements Serializable {
         return vector;
     }
 
-
+    /**
+     * Wypisauje zlecenia druku
+     */
     public void wypiszZleceniaDruku() {
         System.out.println();
         for(int i=0;i<3;i++){
@@ -82,6 +109,11 @@ public class DzialDruku  implements Serializable {
             System.out.println();
         }
     }
+
+    /**
+     * Wypisauje zlecenia druku dla określonej drukarni
+     * @param nrDrukarni numer drukarni której kolejka ma być wypisana
+     */
     private void wypiszZleceniaDrukuDlaDrukarni(Integer nrDrukarni) {
         System.out.println("Drukarnia "+((Integer)(nrDrukarni+1)).toString()+".:");
         Vector<Pair<Publikacja,Integer>> kolejka = drukarnie.get(nrDrukarni).getKolejkaDrukowania();
