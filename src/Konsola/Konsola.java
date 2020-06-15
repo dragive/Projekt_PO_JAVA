@@ -32,13 +32,15 @@ public class Konsola implements Serializable{
     public void startProgramu(){
         wczytajDane();
         String trescMenu="\n" +
-                "[0] <- Wyjście z programu\n" +
                 "[1] <- Zarządzanie autorami.\n" +
                 "[2] <- Zarządzanie umowami.\n" +
                 "[3] <- Zarządzanie publikacjami.\n" +
                 "[4] <- Zarządzanie dzialem druku.\n" +
                 "[5] <- Zarządzanie sklepem.\n" +
+                "\n"+
                 "[9] <- Kolejny dzień.\n" +
+                "\n"+
+                "[0] <- Wyjście z programu\n" +
                 "\n" +
                 "Wpisz numer opcji i zatwierdź \"enterem\"";
         while(true)silnikMenuGlowne(menu(trescMenu,"menu główne"));
@@ -509,7 +511,14 @@ public class Konsola implements Serializable{
      * @throws wyjscieZMenuThrowable Wyrzucana, gdy użytkownik poda komendę do wyjścia z menu
      */
     public void zarzadzanieAutorami()throws wyjscieZMenuThrowable{
-        String trescMenu="\n[0] <- Wyjście do menu głównego\n[1] <- Wypisanie autorów.\n[2] <- Dodanie autora\n[3] <- Usunięcie autora.\n\nWpisz numer opcji i zatwierdź \"enterem\"";
+        String trescMenu="\n" +
+                "[1] <- Wypisanie autorów.\n" +
+                "[2] <- Dodanie autora\n" +
+                "[3] <- Usunięcie autora.\n" +
+                "\n"+
+                "[0] <- Wyjście do menu głównego\n" +
+                "\n" +
+                "Wpisz numer opcji i zatwierdź \"enterem\"";
         while(true){
             silnikMenuAutorzy(menu(trescMenu,"zarządzanie autorami"));
         }
@@ -521,10 +530,11 @@ public class Konsola implements Serializable{
      */
     public void zarzadzanieUmowami()throws wyjscieZMenuThrowable{
         String trescMenu="\n" +
-                "[0] <- Wyjście do menu głównego.\n" +
                 "[1] <- Wypisanie szystkich umów.\n" +
                 "[2] <- Wypisanie szystkich aktywych umów.\n" +
                 "[3] <- Dodaj umowe.\n[4] <- Zakonczenie umowy.\n" +
+                "\n" +
+                "[0] <- Wyjście do menu głównego.\n" +
                 "\n" +
                 "Wpisz numer opcji i zatwierdź \"enterem\"";
         while(true){
@@ -537,10 +547,10 @@ public class Konsola implements Serializable{
      */
     public void zarzadzaniePublikacjami()throws wyjscieZMenuThrowable{
         String trescMenu="\n" +
-                "[0] <- Wyjście do menu głównego\n" +
                 "[1] <- Wypisanie wszystkich publiakcji.\n" +
                 "[2] <- Dodanie publikacji.\n" +
-
+                "\n" +
+                "[0] <- Wyjście do menu głównego\n" +
                 "\n" +
                 "Wpisz numer opcji i zatwierdź \"enterem\"";
         while(true){
@@ -553,11 +563,12 @@ public class Konsola implements Serializable{
      */
     public void zarzadzanieDzialemDruku()throws wyjscieZMenuThrowable{
         String trescMenu="\n" +
-                "[0] <- Wyjście do menu głównego\n" +
                 "[1] <- Zlecenie druku danej ilości jednej z zapisanych publikacji.\n" +
                 "[2] <- Polecenie wydruku.\n" +
                 "[3] <- Wypisanie publikacji czekających do druku.\n" +
                 "[4] <- Wypisanie zawartości magazynu z wydrukowanymi publikacjami.\n" +
+                "\n" +
+                "[0] <- Wyjście do menu głównego\n" +
                 "\n" +
                 "Wpisz numer opcji i zatwierdź \"enterem\"";
         while(true){
@@ -570,12 +581,13 @@ public class Konsola implements Serializable{
      */
     public void zarzadzanieDzialemHandlowym()throws wyjscieZMenuThrowable{
         String trescMenu="\n" +
-                "[0] <- Wyjście do menu głównego\n" +
                 "[1] <- Wyświetlenie ilości publikacji gotowych do sprzedarzy.\n" +
                 "[2] <- Wykonanie zakupu w sklepie.\n" +
                 "[3] <- Wypisanie cen przypisanych do publikacji.\n" +
                 "[4] <- Ustalanie ceny publikacji.\n" +
 
+                "\n" +
+                "[0] <- Wyjście do menu głównego\n" +
                 "\n" +
                 "Wpisz numer opcji i zatwierdź \"enterem\"";
         while(true){
@@ -589,9 +601,10 @@ public class Konsola implements Serializable{
      */
     public void dodajUmowe()throws wyjscieZMenuThrowable{
         String opcje="\n" +
-                    "[0] <- Powrót do zarządzania umowami\n" +
                     "[1] <- Dodanie umowy o prace\n" +
                     "[2] <- Dodanie umowy o dzielo\n" +
+                "\n"+
+                "[0] <- Powrót do zarządzania umowami\n" +
                     "\n";
         String komunikatOBledzie="Podano nieprawidłową wartość. Proszę wybrać jedną z powyższych opcji.\n";
         String cmd;
