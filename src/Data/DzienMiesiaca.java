@@ -61,17 +61,6 @@ public class DzienMiesiaca implements Serializable {
     }
 
     /**
-     * Publiczna metoda obiektów klasy {@link DzienMiesiaca}. Służy do ustawienia dnia miesiąca.
-     * @param dzien Pobiera numer dnia miesiąca.
-     * @throws ZaDuzyDzienMiesiacaException Wyjątek wyrzucany gdy dzień miesiąca jest za duży.
-     * @throws ZaMalyDzienMiesiacaException Wyjątek wyrzucany, gdzy dzień miesiaca jestza mały.
-     */
-    public void setDzien(int dzien) throws ZaDuzyDzienMiesiacaException,ZaMalyDzienMiesiacaException {
-        sprawdzPoprawnoscDniaMiesiaca(dzien);
-        this.dzienMiesiaca =dzien;
-    }
-
-    /**
      * Publiczna metoda klasy {@link DzienMiesiaca}.
      * @return Zwraca wartość dnia.
      */
@@ -84,16 +73,6 @@ public class DzienMiesiaca implements Serializable {
     @Override
     public String toString() {
         return ""+this.dzienMiesiaca;
-    }
-
-    /**
-     * Publiczna metoda służąca do porównania czy obiekt klasy {@link Data} odpowiada odpowiedniemu dniu zapisanemu w obiekcie klasy {@link DzienMiesiaca}.
-     * Gdy w dacie zapisanej w obiekcie klasy {@link Data} miesiąc nie ma tylu dni ile potrzeba w klasie by zrównały sie wartościami, to ostatniego dnia miesiąca zostanie zwrócona wartość true.
-     * @param data Zwraca wartość true, gdy data z obiektu klasy {@link Data} odpowiada dniu miesiąca w obiekcie klasy {@link DzienMiesiaca}.
-     * @return Zwraca wartośc logiczna mówiącą o zgodności dni miesiąca
-     */
-    public boolean equals(Data data) {
-        return (data.getDzien()==this.dzienMiesiaca)||(data.getIloscDniWMiesiacu()<this.dzienMiesiaca);
     }
 
     /**

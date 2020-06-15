@@ -37,13 +37,17 @@ public class DzienTygodnia implements Serializable {
         if(miesiac==1||miesiac==2)Y--;
         return (data.getDzien()+( (int) ((2.6*(((miesiac-3+12)%12)+1))-0.2) ) -2*C+Y+ Y/4 + C/4+6)%7+1;
     }
+
+
     /**
      * Publiczny konstruktor klasy {@link DzienTygodnia} kopiujący obiektu klasy {@link Data}.
      * @param data Obiekt, który ma być skopiowany.
      */
+
     public DzienTygodnia(Data data){
         this.dzien=getDzienTygodniaFromData(data);
     }
+
 
     /**
      * Publiczna metoda obiektów klasy {@link DzienMiesiaca}. Sprawdza czy podana wartość w parametrze jest poprawna.
@@ -63,16 +67,6 @@ public class DzienTygodnia implements Serializable {
      */
     public void sprawdzPoprawnoscDniaTygodnia()throws ZaDuzyDzienTygodniaException, ZaMalyDzienTygodniaException {
         sprawdzPoprawnoscDniaTygodnia(this.dzien);
-    }
-    /**
-     * Publiczna metoda obiektów klasy {@link DzienTygodnia}. Służy do ustawiania dnia tygodnia w obiektach klasy {@link DzienTygodnia}
-     * @param dzien Parametr typu int oznaczający dzien tygodni do przypisania.
-     * @throws ZaDuzyDzienTygodniaException Wyjątek wyrzucany, gdy zapisana wartość w obiekcie {@link DzienTygodnia} jest za duża.
-     * @throws ZaMalyDzienTygodniaException Wyjątek wyrzucany, gdy zapisana wartość w obiekcie {@link DzienTygodnia} jest za mała.
-     */
-    public void setDzien(int dzien)throws ZaMalyDzienTygodniaException, ZaDuzyDzienTygodniaException {
-        sprawdzPoprawnoscDniaTygodnia(dzien);
-        this.dzien=dzien;
     }
 
     /**
@@ -113,16 +107,7 @@ public class DzienTygodnia implements Serializable {
         }
         return ret;
     }
-
-    /**
-     * Publiczna metoda obiektów klasy {@link DzienTygodnia}. Zwraca wartość logiczną z porównania czy dizeń tygodnia w obiekcie klasy {@link Data} jest taki sam jak zapisany w obiekcie klasy {@link DzienTygodnia}
-     * @param data obiekt klasy {@link Data} do porówniania.
-     * @return wartość logiczna z porównania.
-     */
-
-    public boolean equals(Data data) {
-        return (getDzienTygodniaFromData(data)==this.dzien);
-    }
+    
     /**
      * Publiczna metoda klasy {@link DzienTygodnia} porównująca czy obiekt przekazany w parametrze jest taki sam jak obiekt z którego wywoływana jest ta metoda.
      * @param o Obiekt porównywany do obiektu klasy {@link DzienTygodnia}

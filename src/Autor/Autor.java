@@ -1,18 +1,12 @@
 package Autor;
 
-import Autor.AutorExceptions.PusteImieNazwiskoException;
+
 import Data.Data;
 import Konsola.Konsola;
-import Publikacje.Ksiazka;
-import Publikacje.Publikacja;
 import Umowy.Umowa;
-import Umowy.UmowaODzielo;
-import Umowy.UmowaOPrace;
-import ZleceniePublikacji.ZleceniePublikacjiExceptions.UjemnaZaplataException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 /**
@@ -86,24 +80,9 @@ public class Autor implements Serializable {
     }
 
     /**
-     * Prywatna statyczna metoda klasy {@link Autor} sprawdza poprawność Imienia i nazwiska.
-     *
-     * @param imieNazwisko Parametr w którym przekazywana jest wartość imienia i nazwiska autora
-     * @throws PusteImieNazwiskoException Wyrzucany wyjątek jako nieprawidłowość
+     * Aktualizacja Obiektu dla kolejnego dnia
+     * @param data data, dla której ma być zakutualizowany obiekt
      */
-    private static void sprawdzImieNazwisko(String imieNazwisko) throws PusteImieNazwiskoException {
-        if (imieNazwisko.length() == 0) throw new PusteImieNazwiskoException();
-    }
-
-    /**
-     * Prywatna statyczna metoda klasy {@link Autor} sprawdza poprawność Imienia i nazwiska.
-     *
-     * @throws PusteImieNazwiskoException Wyrzucany wyjątek jako nieprawidłowość
-     */
-    public void sprawdzImieNazwisko() throws PusteImieNazwiskoException {
-        sprawdzImieNazwisko(this.imieNazwisko);
-    }
-
     public void kolejnyDzien(Data data) {
 
         Iterator it = umowy.iterator();
@@ -114,11 +93,19 @@ public class Autor implements Serializable {
         }
     }
 
+    /**
+     * @return Zwraca tekstową reprezentacje obiektu
+     */
     @Override
     public String toString() {
         return "Imie i nazwisko: " + Konsola.stalaSzerokosc( imieNazwisko,20) + "\t\t\t\t Ilość umów: " + this.umowy.size();
     }
 
+    /**
+     * Wypisanie daneych z obiektu niezależnie od tego czy umowa jest rozwiazana czy nie
+     * @param poczatekEnumeracji przekazywane dane by moc wypisaywac na ekranie w posataci ID
+     * @return Zwraca ostatnie ID wypisane na ekranie
+     */
     public int wypiszKazdaUmowe(Integer poczatekEnumeracji) {
         Iterator it = umowy.iterator();
         Umowa umowa;
@@ -132,6 +119,12 @@ public class Autor implements Serializable {
         return poczatekEnumeracji;
     }
 
+    /**
+     * Wypisauje aktywne umowy tylko
+     * @param poczatekEnumeracji  przekazywane dane by moc wypisaywac na ekranie w posataci ID
+     * @param data Data potrzeban do stprawdzenia czy dana umowa juest juz aktywna czy też juz moze rozwiazana
+     * @return Zwraca ostatnio wypisane ID
+     */
     public int wypiszAktywnaUmowe(Integer poczatekEnumeracji, Data data) {
         Iterator it = umowy.iterator();
         Umowa umowa;
@@ -147,6 +140,12 @@ public class Autor implements Serializable {
         return poczatekEnumeracji;
     }
 
+    /**
+     * Metoda zakańcza umowe manualnie.
+     * @param poczatekEnumeracji  przekazywane dane by moc wypisaywac na ekranie w posataci ID
+     * @param indexDoUsuniecia ID umowy w liscie do rozwiazania.
+     * @return Zwraca ostatni ID dla ktorego bylo to rozpatrywane
+     */
     public Integer zakonczUmowe(Integer poczatekEnumeracji, Integer indexDoUsuniecia) {
         Iterator it = umowy.iterator();
        // if (indexDoUsuniecia > poczatekEnumeracji) return;
@@ -160,8 +159,6 @@ public class Autor implements Serializable {
         }
         return poczatekEnumeracji;
     }
-
-
 }
 
 

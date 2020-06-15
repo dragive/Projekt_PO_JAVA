@@ -17,14 +17,6 @@ public abstract class Umowa implements Serializable {
     protected Data dataZawarcia;
     protected boolean czyAktywna;
     protected boolean zakonczonaManualnie;
-    /**
-     * Publiczna metoda klasy abstrakcyjnej {@link Umowa}
-     * @return Zwraca datę zawarcia umowy.
-     */
-
-    public Data getDataZawarcia() {
-        return this.dataZawarcia;
-    }
 
     /**
      * Metoda klasy {@link Umowa}

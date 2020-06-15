@@ -43,38 +43,6 @@ public class Data implements Serializable {
         this.miesiac=data.getMiesiac();
     }
 
-    /**
-     * Publiczna metoda klasy {@link Data} służąca do nadpisania wartość w prywatnym polu rok klasy {@link Data}.
-     * @param rok wartość roku w dacie.
-     */
-    public void setRok(int rok){
-        this.rok=rok;
-    }
-    /**
-     * Publiczna metoda klasy {@link Data} służąca do nadpisania wartość w prywatnym polu miesiąc klasy {@link Data}.
-     * Wartość musi być z zakresu od 1 do 12 włącznie.
-     * @param miesiac wartość miesiąca w dacie.
-     * @throws ZaMalaWartoscMiesiacaException Wyjątek podnoszony, gdy podawana jest za mała, nie możliwa do osiągnięcia wartość miesiąca.
-     * @throws ZaDuzaWartoscMiesiacaException Wyjątek podnoszony, gdy podawana jest za duża, nie możliwa do osiągnięcia wartość miesiąca.
-     */
-    public void setMiesiac(int miesiac)throws ZaMalaWartoscMiesiacaException,ZaDuzaWartoscMiesiacaException{
-        if(miesiac<1)
-            throw new ZaMalaWartoscMiesiacaException();
-        if(miesiac>12)throw new ZaDuzaWartoscMiesiacaException();
-        this.miesiac=miesiac;
-    }
-    /**
-     * Publiczna metoda klasy {@link Data} służąca do nadpisania wartość w prywatnym polu dzien klasy {@link Data}.
-     * Wartość wstępnie jest sprawdzana pod kątem możliwego wyjścia poza zakres 1-31. Nalezy po wywołaniu sprawdzić czy format daty jest poprawny.
-     * @param dzien wartość miesiąca w dacie.
-     * @throws NieprawidlowaWartoscDniaException Wyjątek podnoszony, gdy podawana jest za mała, nie możliwa do osiągnięcia wartość miesiąca.
-     */
-    public void setDzien(int dzien)throws NieprawidlowaWartoscDniaException {
-
-        if(dzien<1||dzien>31)
-            throw new NieprawidlowaWartoscDniaException();
-        this.dzien=dzien;
-    }
 
     /**
      * Publiczny getter klasy {@link Data} zwracający nr dnia.

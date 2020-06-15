@@ -13,6 +13,7 @@ import Konsola.Konsola;
 import Publikacje.Publikacja;
 import Umowy.Umowa;
 import Wydawnictwo.KlasyPomocnicze.Pair;
+import Wydawnictwo.MagazynExceptions.MagazynZaMaloPublikacjiDoWykonaniaZakupuException;
 
 import javax.swing.*;
 
@@ -56,6 +57,7 @@ public class Wydawnictwo implements Serializable {
     public Data getData(){
         return data;
     }
+    public Magazyn getMagazyn(){return magazyn;}
     public void wypiszAutor(){
         if (autorzy.size()==0){
             System.out.println("\n\tW wydawnictwie nie ma zapisanych żadnych autorów.\n");
@@ -69,6 +71,7 @@ public class Wydawnictwo implements Serializable {
             id++;
         }
     }
+    public DzialHandlowy getSklep(){return sklep;}
 
     public List<Autor> getAutorzy() {
         return autorzy;
@@ -181,9 +184,10 @@ Integer i =0;
 
         Vector <Pair<Publikacja,Integer>> vector= druk.wydajPolecenieWydruku();
         Integer ret = vector.size();
+
         magazyn.przyjmijPublikacjeZWydruku(vector);
 
-        //return ret;
+
     }
 
     public void wypiszZleceniaDruku() {
@@ -226,8 +230,15 @@ Integer i =0;
         }while(!ok);
         sklep.setCena((Publikacja)it.next(),((float) Math.round((cena*100)/100)));
     }
+    public void zakupPublikacji(Publikacja publ,Integer ilosc) throws MagazynZaMaloPublikacjiDoWykonaniaZakupuException {
+        magazyn.zmniejszenieStanuMagazynu(publ,ilosc);
+    }
 
-    public void wypisaniePublikacjiZCenaIID() {
-        sklep.wypisaniePublikacjiZCenaIID(publikacje);
+    public Integer wypisaniePublikacjiZCenaIID() {
+        return sklep.wypisaniePublikacjiZCenaIID(publikacje,magazyn);
+    }
+    public List<Publikacja> getPublikacjeZCena() {
+        /*todo debug usunac if(publikacje.get(0)==sklep.getPublikacjeZCena(publikacje))System.out.println("123123123");*/
+        return sklep.getPublikacjeZCena(publikacje);
     }
 }

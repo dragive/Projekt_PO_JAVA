@@ -14,15 +14,7 @@ import java.util.*;
 public class DzialDruku  implements Serializable {
     private Vector<Drukarnia> drukarnie;
 
-    private static boolean czyAlbum(Publikacja dzielo){
-        if(dzielo instanceof Ksiazka){
-            Ksiazka ksiazka=(Ksiazka) dzielo;
-            if(ksiazka.getGatunek().toLowerCase()=="album"){
-                return true;
-            }
-        }
-        return false;
-    }
+
 
     public DzialDruku(){
         drukarnie=new Vector<Drukarnia>();
@@ -43,22 +35,23 @@ public class DzialDruku  implements Serializable {
         for(int i=0;i<vector1.size();i++){
             if(mapa.get(vector1.get(i).getFirst())==null)
             {
-                mapa.put(vector1.get(i).getFirst(),0);
-            }
+                mapa.put(vector1.get(i).getFirst(),vector1.get(i).getSecond());
+            }else
             mapa.put(vector1.get(i).getFirst(),vector1.get(i).getSecond()+mapa.get(vector1.get(i).getFirst()));
         }
 
         for(int i=0;i<vector2.size();i++){
             if(mapa.get(vector2.get(i).getFirst())==null)
             {
-                mapa.put(vector2.get(i).getFirst(),0);
-            }
+                mapa.put(vector2.get(i).getFirst(),vector2.get(i).getSecond());
+            }else
             mapa.put(vector2.get(i).getFirst(),vector2.get(i).getSecond()+mapa.get(vector2.get(i).getFirst()));
         }
 
         for(Map.Entry m : mapa.entrySet()){
             vector.add(new Pair<Publikacja,Integer>((Publikacja)m.getKey(),(Integer)m.getValue()));
         }
+
         return vector;
     }
     public Vector<Pair<Publikacja,Integer>> wydajPolecenieWydruku(){
@@ -74,6 +67,10 @@ public class DzialDruku  implements Serializable {
         drukarnie.set(0,drukarnia1);
         drukarnie.set(1,drukarnia2);
         drukarnie.set(2,drukarnia3);
+
+
+        //todo debugfor(int i=0;i<vector.size();i++)System.out.println(vector.get(i).getFirst().toString()+"   "+vector.get(i).getSecond().toString());
+
         return vector;
     }
 

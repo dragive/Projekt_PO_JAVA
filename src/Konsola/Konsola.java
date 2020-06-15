@@ -12,17 +12,23 @@ import Publikacje.Publikacja;
 import Publikacje.Tygodnik;
 import Umowy.UmowaODzielo;
 import Umowy.UmowaOPrace;
+import Wydawnictwo.MagazynExceptions.MagazynZaMaloPublikacjiDoWykonaniaZakupuException;
 import Wydawnictwo.Wydawnictwo;
-
 import java.io.*;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
-
+/**
+ * Klasa służąca do obsługi klasy {@link Wydawnictwo}. Wprowadza finkcjonlaności interfejsu tekstowego.
+ * @author MF
+ */
 public class Konsola implements Serializable{
  private Wydawnictwo wydawnictwo;
 
+    /**
+     * Wykonanie metody oznacza wczytanie danych z pliku i uruchomienie Menu Głównego.
+     */
     public void startProgramu(){
         wczytajDane();
         String trescMenu="\n" +
@@ -36,6 +42,11 @@ public class Konsola implements Serializable{
                 "Wpisz numer opcji i zatwierdź \"enterem\"";
         while(true)silnikMenuGlowne(menu(trescMenu,"menu główne"));
     }
+
+    /**
+     * Metoda obslugująca komendy podawane w parametrze dla Menu Głównego.
+     * @param cmd
+     */
     private void silnikMenuGlowne(String cmd){
         switch (cmd){
             case "0":
@@ -70,6 +81,10 @@ public class Konsola implements Serializable{
                 break;
         }
     }
+    /**
+     * Metoda obslugująca komendy podawane w parametrze dla Menu Autorzy.
+     * @param cmd
+     */
     private void silnikMenuAutorzy(String cmd) throws wyjscieZMenuThrowable {
         switch (cmd){
             case "0":
@@ -89,6 +104,10 @@ public class Konsola implements Serializable{
                 break;
         }
     }
+    /**
+     * Metoda obslugująca komendy podawane w parametrze dla Menu Umowy.
+     * @param cmd
+     */
     private void silnikMenuUmowy(String cmd) throws wyjscieZMenuThrowable {
         switch (cmd){
             case "0":
@@ -106,16 +125,16 @@ public class Konsola implements Serializable{
             case "4":
                 zakonczUmowe();
                 break;
-                /*
-            case "5":
-                usunUmowe();//#todo pass
-                break;
-                */
+
             default:
                 nieznanaKomenda(cmd);
                 break;
         }
     }
+    /**
+     * Metoda obslugująca komendy podawane w parametrze dla Menu Publikacje.
+     * @param cmd
+     */
     private void silnikMenuPublikacje(String cmd) throws wyjscieZMenuThrowable {
         switch (cmd){
             case "0":
@@ -132,16 +151,20 @@ public class Konsola implements Serializable{
                 break;
         }
     }
+    /**
+     * Metoda obslugująca komendy podawane w parametrze Menu Dzialu Druku.
+     * @param cmd
+     */
     private void silnikMenuDzialDruku(String cmd) throws wyjscieZMenuThrowable {
         switch (cmd){
             case "0":
                 if(true)throw new wyjscieZMenuThrowable();
                 break;
             case "1":
-                dodajZlecenieDruku();//#todo
+                dodajZlecenieDruku();
                 break;
             case "2":
-                wydajPolecenieWydruku(); //#todo
+                wydajPolecenieWydruku();
                 break;
             case "3":
                 wypiszZleceniaDruku();
@@ -154,21 +177,20 @@ public class Konsola implements Serializable{
                 break;
         }
     }
-
-    private void wypiszStanMagazynu() {
-        wydawnictwo.wypiszStanMagazynu();
-    }
-
+    /**
+     * Metoda obslugująca komendy podawane w parametrze dla Menu Działu Handlowego.
+     * @param cmd
+     */
     private void silnikMenuDzialHandlowy(String cmd) throws wyjscieZMenuThrowable {
         switch (cmd){
             case "0":
                 if(true)throw new wyjscieZMenuThrowable();
                 break;
             case "1":
-                wyswietlStanSklepu();//#todo
+                wyswietlStanSklepu();
                 break;
             case "2":
-                zakupSklep();//#todo
+                zakupSklep();
                 break;
             case"3":
                 wypisaniePublikacjiZCenaIID();
@@ -181,15 +203,21 @@ public class Konsola implements Serializable{
         }
     }
 
-    private void definiowowanieCenyPublikacji() {
-        wydawnictwo.ustawCenePublikacji();
-    }
 
+    /**
+     * Metoda wykonywana pod koniec działania programu. Zapisuje do pliku stan programu.
+     */
     public void koniecProgramu(){
         zapisObiektuDoPliku(wydawnictwo,"wyd.dat");
         System.exit(0);
     }
 
+    /**
+     * Metoda
+     * @param trescMenu
+     * @param poziom
+     * @return
+     */
     public String menu(String trescMenu,String poziom){
         System.out.print(trescMenu+"\n("+poziom+", data: "+wydawnictwo.getData().toString()+")~~ ");
         Scanner scanner = new Scanner(System.in);
@@ -244,7 +272,8 @@ public class Konsola implements Serializable{
                     wystapilBlad=true;
 
             }
-
+            if(ret==null)wystapilBlad=true; else wystapilBlad=false;
+            System.out.print(ret);
         }while(wystapilBlad);
         return ret;
     }
@@ -319,7 +348,7 @@ public class Konsola implements Serializable{
             if(!ok)System.out.println(komunikatOBledzie);
             ok=true;
             drukarnia=pobierzInteger(mess,komunikatOBledzie+mess);
-            if(drukarnia<1||drukarnia>=3||(publ instanceof Ksiazka &&drukarnia==1 && ((Ksiazka)publ).getGatunek().toLowerCase().contains("album")))ok=false;
+            if(drukarnia<1||drukarnia>3||(publ instanceof Ksiazka &&drukarnia!=1 && ((Ksiazka)publ).getGatunek().toLowerCase().contains("album")))ok=false;
         }while(!ok);
 
         wydawnictwo.dodajZlecenieDrukuPublikacji(publ,ilosc,drukarnia-1);
@@ -330,18 +359,84 @@ public class Konsola implements Serializable{
     public void wypiszZleceniaDruku(){wydawnictwo.wypiszZleceniaDruku();}
 
     public void wyswietlStanSklepu(){ wypiszStanMagazynu();}
-    public void zakupSklep(){}
-    public void wypisaniePublikacjiZCenaIID(){
-        wydawnictwo.wypisaniePublikacjiZCenaIID();
+    public void zakupSklep(){
+        /*wypisz id ceny i publikacje
+        * gdy to mozliwe czyli wyisauje sie wiecej niz 1 to koniec: nie mazkupu
+        *
+        * pobranie ID i ilosci do kskutku az bedzie mozna to zrobic i odjecie od magazynu*/
+        Integer naklad;
+        Integer ilosc = wypisaniePublikacjiZCenaIID();
+        if(ilosc==0){
+            System.out.println("Nie można zatem wykonac jakiegokolwiek zakupu.");
+            return;
+        }
+        boolean ok=true;
+        ok=true;
+        String mess1 = "Podaj ID publikacji, która ba być zakupiona: ";
+        String komunikatOBledzie1="Nie ma publikacji o takim ID. ";
+        Integer ID;
+        do{
+            if(!ok)System.out.println(komunikatOBledzie1);
+            ok=true;
+            ID=pobierzInteger(mess1,komunikatOBledzie1+mess1);
+            if(ID<0||ID>=ilosc){ok=false;}
+        }while(!ok);
+
+        Iterator it = wydawnictwo.getPublikacjeZCena().iterator();
+        while(it.hasNext()&&ID>0){ID--;it.next();}
+        Publikacja p=(Publikacja)it.next();
+
+        boolean okglowny=true;
+        do {
+            ok = true;
+            String mess2 = "Podaj ilosc egzemplarzy publikacji, które będą zakupione: ";
+            String komunikatOBledzie2 = "Nie można zakupić takiej ilości publikacji. ";
+
+            do {
+                if (!ok) System.out.println(komunikatOBledzie2);
+                ok = true;
+                naklad = pobierzInteger(mess2, komunikatOBledzie2 + mess2);
+                if (naklad < 0 && wydawnictwo.getMagazyn().sprawdzIloscPublikacjiWMagazynie(p) >= naklad) {
+                    ok = false;
+                }
+
+                //System.out.println(wydawnictwo.getMagazyn().sprawdzIloscPublikacjiWMagazynie(p));
+            } while (!ok);
+
+
+           try{ okglowny = true;wydawnictwo.zakupPublikacji(p,naklad);}catch (MagazynZaMaloPublikacjiDoWykonaniaZakupuException ex){okglowny=false;}
+           if(!okglowny){
+               System.out.print("Za malo publikacji w magazynie by móc dokonać takiego zakupu.");
+           }
+
+
+        }while(!okglowny);
+
+
+
+        System.out.println("Zakupiono publikacje za: "+wydawnictwo.getSklep().getCenaPublikacji(p)*naklad+" zł.");
+
+
+
+    }
+    public Integer wypisaniePublikacjiZCenaIID(){
+       return  wydawnictwo.wypisaniePublikacjiZCenaIID();
+    }
+    public void wypiszStanMagazynu() {
+        wydawnictwo.wypiszStanMagazynu();
+    }
+    public void definiowowanieCenyPublikacji() {
+        wydawnictwo.ustawCenePublikacji();
     }
 
-    void zarzadzanieAutorami()throws wyjscieZMenuThrowable{
+
+    public void zarzadzanieAutorami()throws wyjscieZMenuThrowable{
         String trescMenu="\n[0] <- Wyjście do menu głównego\n[1] <- Wypisanie autorów.\n[2] <- Dodanie autora\n[3] <- Usunięcie autora.\n\nWpisz numer opcji i zatwierdź \"enterem\"";
         while(true){
             silnikMenuAutorzy(menu(trescMenu,"zarządzanie autorami"));
         }
     }
-    void zarzadzanieUmowami()throws wyjscieZMenuThrowable{
+    public void zarzadzanieUmowami()throws wyjscieZMenuThrowable{
         String trescMenu="\n" +
                 "[0] <- Wyjście do menu głównego.\n" +
                 "[1] <- Wypisanie szystkich umów.\n" +
@@ -353,7 +448,7 @@ public class Konsola implements Serializable{
             silnikMenuUmowy(menu(trescMenu,"zarządzanie umowami"));
         }
     }
-    void zarzadzaniePublikacjami()throws wyjscieZMenuThrowable{
+    public void zarzadzaniePublikacjami()throws wyjscieZMenuThrowable{
         String trescMenu="\n" +
                 "[0] <- Wyjście do menu głównego\n" +
                 "[1] <- Wypisanie wszystkich publiakcji.\n" +
@@ -365,7 +460,7 @@ public class Konsola implements Serializable{
             silnikMenuPublikacje(menu(trescMenu,"zarządzanie publikacjami"));
         }
     }
-    void zarzadzanieDzialemDruku()throws wyjscieZMenuThrowable{
+    public void zarzadzanieDzialemDruku()throws wyjscieZMenuThrowable{
         String trescMenu="\n" +
                 "[0] <- Wyjście do menu głównego\n" +
                 "[1] <- Zlecenie druku danej ilości jednej z zapisanych publikacji.\n" +
@@ -378,7 +473,7 @@ public class Konsola implements Serializable{
             silnikMenuDzialDruku(menu(trescMenu,"zarządzanie dzialem druku"));
         }
     }
-    void zarzadzanieDzialemHandlowym()throws wyjscieZMenuThrowable{
+    public void zarzadzanieDzialemHandlowym()throws wyjscieZMenuThrowable{
         String trescMenu="\n" +
                 "[0] <- Wyjście do menu głównego\n" +
                 "[1] <- Wyświetlenie ilości publikacji gotowych do sprzedarzy.\n" +
@@ -392,7 +487,7 @@ public class Konsola implements Serializable{
             silnikMenuDzialHandlowy(menu(trescMenu,"zarządzanie sklepem i działem handlowym"));
         }
     }
-    void dodajUmowe()throws wyjscieZMenuThrowable{
+    public void dodajUmowe()throws wyjscieZMenuThrowable{
         String opcje="\n" +
                     "[0] <- Powrót do zarządzania umowami\n" +
                     "[1] <- Dodanie umowy o prace\n" +
@@ -422,7 +517,7 @@ public class Konsola implements Serializable{
 
         }while(wystapilBlad);
     }
-    void dodajUmoweOPrace(){
+    public void dodajUmoweOPrace(){
 
         String wiadomosc="Proszę podać imię i nazwisko autora, z którym podspisywana jest umowa, i zatwierdź \"enterem\": ";
         String komunikatOBledzie="Imię i nazwisko autora jest za krótkie.";
@@ -441,9 +536,9 @@ public class Konsola implements Serializable{
         ok=true;
         while(true) {
             if(!ok)System.out.println("\nData konca jest wcześniejsza niż data rozpoczęcia umowy. Proszę wprowadzić ponownie dane.\n");
-            System.out.println("Podaj datę rozpoczęcia umowy.");
+            System.out.println("\nPodaj datę rozpoczęcia umowy.");
             dataR = pobierzDate();
-            System.out.println("Podaj datę zakonczenia umowy.");//#todo dodanie wyjustowania
+            System.out.println("\nPodaj datę zakonczenia umowy.");
             dataZ = pobierzDate();
             if(dataR.jestWiekszaOd(dataZ)>0)ok=false;
             if(ok)break;
@@ -452,7 +547,7 @@ public class Konsola implements Serializable{
         wydawnictwo.dodajUmoweDoAutora(new UmowaOPrace(dataR,dataZ),imieNazwisko);
 
     }
-    void dodajUmoweODzielo(){
+    public void dodajUmoweODzielo(){
         Publikacja publ=null;
         Float kwota;
         boolean ok=true;
@@ -467,7 +562,7 @@ public class Konsola implements Serializable{
             imieNazwisko = pobierzString(wiadomosc, komunikatOBledzie+" "+wiadomosc,true);
             if(imieNazwisko.length()>0)ok=true; else ok=false;
         }while(!ok);
-        String wiadomoscK="Proszę podać kwotęjaką otrzyma autor za napisanie publikacji: ";
+        String wiadomoscK="Proszę podać kwotę jaką otrzyma autor za napisanie publikacji: ";
         String komunikatOBledzieK="Podane dane nie są poprawną kwotą. ";
 
 
@@ -485,16 +580,16 @@ public class Konsola implements Serializable{
         ok=true;
         while(true) {
             if(!ok)System.out.println("\nData konca jest wcześniejsza niż data rozpoczęcia umowy. Proszę wprowadzić ponownie dane.\n");
-            System.out.println("Podaj datę rozpoczęcia umowy.");
+            System.out.println("\nPodaj datę rozpoczęcia umowy.");
             dataR = pobierzDate();
-            System.out.println("Podaj datę zakonczenia umowy.");//#todo dodanie wyjustowania
+            System.out.println("\nPodaj datę zakonczenia umowy.");
             dataZ = pobierzDate();
             if(dataR.jestWiekszaOd(dataZ)>0)ok=false;
             if(ok)break;
         }
 
         do{System.out.println("\nWybierz typ i podaj dane do utworzenia publikacji.\n");publ = utworzPublikacje();} //tod dodanie publikacji dodanie wyboru czy utworzyc publikacje czy wykorzystac wczesniej utworzona
-        while(publ!=null);
+        while(publ==null);
 /*
         Iterator it = wydawnictwo.autorzy.iterator(),itPomocniczy=it;
         while(it.hasNext()){
@@ -506,7 +601,7 @@ public class Konsola implements Serializable{
         wydawnictwo.dodajUmoweDoAutora(new UmowaODzielo((float) Math.round(kwota*100)/100,dataR,dataZ,publ),imieNazwisko);
 
     }
-    void zakonczUmowe(){
+    public void zakonczUmowe(){
         String message = "Podaj ID publikacji do usuniecia: ";
         String komunikat = "Nie ma takiej umowy o takim ID. ";
         Integer ID=null;
@@ -524,7 +619,7 @@ public class Konsola implements Serializable{
 
     }
 
-    private void dodajaAutora(){
+    public void dodajaAutora(){
         String imienazwisko,message;
         boolean first=false;
         do{
@@ -537,7 +632,7 @@ public class Konsola implements Serializable{
         }while(imienazwisko.length()==0);
         wydawnictwo.dodajAutora(new Autor(imienazwisko));
     }
-    private void usunAutora(){
+    public void usunAutora(){
         if(wydawnictwo.getAutorzy().size()==0){System.out.println("\nNie ma żadnego autora do usunięcia.\n\n");return;}
         wypiszAutorow();
         System.out.print("Podaj id autora by go usunąć: ");

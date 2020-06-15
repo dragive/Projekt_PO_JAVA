@@ -18,17 +18,11 @@ public class Drukarnia implements Serializable {
     public void zlozZamowienieNaDruk(Publikacja dzielo, Integer ilosc){
         kolejkaDrukowania.add(new Pair(dzielo,ilosc));
     }
-/*    public Pair<Publikacja,Integer> drukuj(){
-        Pair<Publikacja,Integer> wydrukowane=kolejkaDrukowania.();
-        return wydrukowane;
-    }*/
-    public boolean getDrukAlbumow(){
-        return this.drukAlbumow;
-    }
+
 
     public Vector<Pair<Publikacja,Integer>> wydajPolecenieWydruku(){
         Vector<Pair<Publikacja,Integer>> ret;
-        ret=kolejkaDrukowania;
+        ret=new Vector (kolejkaDrukowania);
         kolejkaDrukowania.clear();
         return ret;
     }

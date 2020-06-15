@@ -1,6 +1,5 @@
 package Publikacje;
 
-import Publikacje.PublikacjaExceptions.ZaKrotkiTytulException;
 
 /**
  * Klasa abstrakcyjna {@link PublikacjaCykliczna} rozszerza {@link Publikacja}
@@ -11,11 +10,15 @@ public abstract class PublikacjaCykliczna extends Publikacja{
     /**
      * Konstruktor klasy abstrakcyjnej {@link PublikacjaCykliczna}.
      * @param tytul Jest to tytuł danej publikacji
-     * @throws ZaKrotkiTytulException Podnoszony wyjątek {@link ZaKrotkiTytulException}, gdy tytuł jest długości 0
      */
     public PublikacjaCykliczna(String tytul,String imieNazwiskoAutora)
     {
         super(tytul,imieNazwiskoAutora);
 
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

@@ -1,10 +1,8 @@
 package Publikacje;
 
 import Data.DzienTygodnia;
-import Data.DzienTygodniaExceptions.ZaDuzyDzienTygodniaException;
-import Data.DzienTygodniaExceptions.ZaMalyDzienTygodniaException;
 import Konsola.Konsola;
-import Publikacje.PublikacjaExceptions.ZaKrotkiTytulException;
+import java.util.Objects;
 
 /**
  * Klasa finalna {@link Tygodnik} dziedziczy z klasy abstrakcyjnej {@link PublikacjaCykliczna}.
@@ -20,10 +18,7 @@ public final class Tygodnik extends PublikacjaCykliczna{
      * Konstruktor klasy {@link Tygodnik}
      * @param tytul Tytuł danej publikacji
      * @param dzienTygodnia Dzień Tygodnia cyklicznego wydawania publikacji
-     * @throws ZaKrotkiTytulException Wyjątek podnoszony, gdy tytuł jest za krótki
-     * @throws ZaDuzyDzienTygodniaException wyjątek podnoszony, gdy jest podany dzień tygodnia jest za duży
-     * @throws ZaMalyDzienTygodniaException wyjątek podnoszony, gdy jest podany dzień tygodnia jest za mały
-     */
+    */
     public Tygodnik(String tytul,DzienTygodnia dzienTygodnia,String imieNazwiskoAutora) {
         super(tytul,imieNazwiskoAutora);
 
@@ -31,8 +26,22 @@ public final class Tygodnik extends PublikacjaCykliczna{
     }
     @Override
     public String toString() {
-        return "Kategoria: Tygodnik        Autor: "+ Konsola.stalaSzerokosc(imieNazwiskoAutora,20)+
-                " Tytuł: "+ Konsola.stalaSzerokosc(getTytul(),20)+
-                " Dzien wydania: "+Konsola.stalaSzerokosc(dzienTygodnia.toString(),15);
+        return "Kategoria: Tygodnik        Autor: " + Konsola.stalaSzerokosc(imieNazwiskoAutora, 20) +
+                " Tytuł: " + Konsola.stalaSzerokosc(getTytul(), 20) +
+                " Dzien wydania: " + Konsola.stalaSzerokosc(dzienTygodnia.toString(), 15);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Tygodnik tygodnik = (Tygodnik) o;
+        return dzienTygodnia.equals(tygodnik.dzienTygodnia);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), dzienTygodnia);
     }
 }

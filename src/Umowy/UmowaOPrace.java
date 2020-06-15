@@ -2,7 +2,7 @@ package Umowy;
 
 
 import Konsola.Konsola;
-import Umowy.UmowyExceptions.PonowneRozwiazanieUmowyException;
+
 import ZleceniePublikacji.ZleceniePublikacji;
 
 import java.util.ArrayList;
@@ -40,49 +40,6 @@ public class UmowaOPrace  extends  Umowa{
         zlecenia = new ArrayList<ZleceniePublikacji>();
     }
 
-    /**
-     * Metoda zwracająca date zakończenia umowy
-     * @return Data zakończenia umowy
-     */
-    public Data getDataKonca() {
-        return dataKonca;
-    }
-
-    /**
-     * Metoda służąca dodawaniu zleceń do konkretnej umowy
-     * @param zlecenie Zlecenie, które ma być dodane do danej uwmoy
-     */
-    public void dodajZlecenie(ZleceniePublikacji zlecenie){
-        this.zlecenia.add(zlecenie);
-    }
-
-    /**
-     * Metoda służąca do pobrania zleceń publikacji zapisanych w danej umowie
-     * @return Zwraca listę zleceń zapisanych
-     */
-    public List<ZleceniePublikacji> getZlecenia() {
-        return this.zlecenia;
-    }
-
-    /**
-     * Metoda służąca doprzedłużenia umowy
-     * @param iloscDni Ilość dni, o które przedlużana jest umowa.
-     */
-
-    public void przedluz(int iloscDni){
-        for(int i=0;i<iloscDni;i++)this.dataKonca.kolejnyDzien();
-    }
-
-
-    /**
-     * Rozwiązuje daną umowę.
-     * @throws PonowneRozwiazanieUmowyException Wyjątek wyrzucany, gdy rozwiązywana jest juz umowa rozwiązana.
-     */
-    public void rozwiazUmowe() throws PonowneRozwiazanieUmowyException {
-        if(this.czyAktywna==true) throw new PonowneRozwiazanieUmowyException();
-        this.czyAktywna=true;
-    }
-
     @Override
     public void aktualizacnaAktywnosciUmowy(Data data){
         if(dataZawarcia.wczesniejsza(data)==1&&data.wczesniejsza(dataKonca)==1)
@@ -99,6 +56,8 @@ public class UmowaOPrace  extends  Umowa{
 
         return "Kategoria: \"O Prace\"                 "+ Konsola.stalaSzerokosc( "",20)+
                 "   Data Zawarcia: " + dataZawarcia+
+                "   : " + dataZawarcia+
+                "   Zaplata:        "+
                 "   Data Zakonczenia: " + dataKonca;
     }
 

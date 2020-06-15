@@ -41,41 +41,7 @@ public final class UmowaODzielo extends Umowa {
         this.dzielo = dzielo;
     }
 
-    /**
-     * Publiczna metoda klasy {@link UmowaODzielo}
-     * @return Zwracana jest data ukończenia.
-     */
-    public Data getDataUkonczenia() {
-        return this.dataUkonczenia;
-    }
 
-    /**
-     * Publiczna metoda klasy {@link UmowaODzielo}
-     * @return Zwracana jest zaplata
-     */
-    public float getZaplata() {
-        return this.zaplata;
-    }
-
-    /**
-     * Publiczna metoda klasy {@link UmowaODzielo}
-     * @param iloscDni ilość dni, o które ma być przedłużona umowa
-     */
-    public void przedluzUkonczenie(int iloscDni){
-        for(int i=0;i<iloscDni;i++){
-            this.dataUkonczenia.kolejnyDzien();
-        }
-    }
-
-    /**
-     * Publiczna metoda klasy {@link UmowaODzielo}
-     * @param nowaZaplata Nowa wartość zaplaty do aktualizacji w umowie
-     * @throws UjemnaZaplataException Wyjątek podnoszony, gdy zaplata jest ujemna
-     */
-    public void zmienZaplate(float nowaZaplata) throws UjemnaZaplataException{
-        if(zaplata<0)throw new UjemnaZaplataException();
-        this.zaplata=zaplata;
-    }
     @Override
     public void aktualizacnaAktywnosciUmowy(Data data){
         if(dataZawarcia.wczesniejsza(data)==1&&data.wczesniejsza(dataUkonczenia)==1)

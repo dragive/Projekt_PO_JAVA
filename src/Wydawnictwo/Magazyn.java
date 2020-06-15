@@ -4,6 +4,7 @@ package Wydawnictwo;
 import Konsola.Konsola;
 import Publikacje.Publikacja;
 import Wydawnictwo.KlasyPomocnicze.Pair;
+import Wydawnictwo.MagazynExceptions.MagazynZaMaloPublikacjiDoWykonaniaZakupuException;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -20,10 +21,13 @@ public class Magazyn  implements Serializable {
 
     public void dodajPublikacje(Publikacja dzielo,Integer ilosc){
 
-        if (publikacje.containsKey(dzielo)) {
+        if (!publikacje.containsKey(dzielo)) {
             publikacje.put(dzielo,ilosc);
-        }
+        }else
+
         publikacje.put(dzielo,ilosc+publikacje.get(dzielo));
+        /*//todo debug
+        System.out.print(publikacje.get(dzielo).toString()+"  alaa  "+ilosc.toString());*/
     }
     public Integer sprawdzIloscPublikacjiWMagazynie(Publikacja klucz){
         if(publikacje.get(klucz)==null)publikacje.put(klucz,0);
@@ -43,11 +47,17 @@ public class Magazyn  implements Serializable {
     public void przyjmijPublikacjeZWydruku(Vector<Pair<Publikacja,Integer>> zWydruku){
         Publikacja p;
         Integer l;
+        System.out.print(zWydruku.size());
         for(int i=0;i<zWydruku.size();i++){
             p=zWydruku.get(i).getFirst();
             l=zWydruku.get(i).getSecond();
             dodajPublikacje(p,l);
         }
+    }
+
+    public void zmniejszenieStanuMagazynu(Publikacja publ,Integer ilosc)throws MagazynZaMaloPublikacjiDoWykonaniaZakupuException {
+        if(publikacje.get(publ)-ilosc<0)throw new MagazynZaMaloPublikacjiDoWykonaniaZakupuException();
+        publikacje.put(publ,(publikacje.get(publ)-ilosc));
     }
 
 
