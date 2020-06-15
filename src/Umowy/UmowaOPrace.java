@@ -40,17 +40,29 @@ public class UmowaOPrace  extends  Umowa{
         zlecenia = new ArrayList<ZleceniePublikacji>();
     }
 
+    /**
+     * Sprawdzenie czy umowa jest aktualna i aktualizacja danych z tym zwiazanymi
+     * @param data data dnia dla której ma nastąpić aktualizacja
+     */
     @Override
     public void aktualizacnaAktywnosciUmowy(Data data){
         if(dataZawarcia.wczesniejsza(data)==1&&data.wczesniejsza(dataKonca)==1)
             czyAktywna=true;
         else czyAktywna=false;
     }
+
+    /**
+     * Działania związane z nastapieniem kolejnego dnia
+     * @param data data kolejnego dnia
+     */
     @Override
     public void kolejnyDzien(Data data){
         this.aktualizacnaAktywnosciUmowy(data);
     }
 
+    /**
+     * @return Zwrócenie informacji o umowie gotowych do wypisania.
+     */
     @Override
     public String toString() {
 

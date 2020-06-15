@@ -38,6 +38,7 @@ public class Konsola implements Serializable{
                 "[3] <- Zarządzanie publikacjami.\n" +
                 "[4] <- Zarządzanie dzialem druku.\n" +
                 "[5] <- Zarządzanie sklepem.\n" +
+                "[9] <- Kolejny dzień.\n" +
                 "\n" +
                 "Wpisz numer opcji i zatwierdź \"enterem\"";
         while(true)silnikMenuGlowne(menu(trescMenu,"menu główne"));

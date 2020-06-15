@@ -41,18 +41,29 @@ public final class UmowaODzielo extends Umowa {
         this.dzielo = dzielo;
     }
 
-
+    /**
+     * Metoda aktualizacji aktywnisci umowy
+     * @param data data dnia dla której ma nastąpić aktualizacja
+     */
     @Override
     public void aktualizacnaAktywnosciUmowy(Data data){
         if(dataZawarcia.wczesniejsza(data)==1&&data.wczesniejsza(dataUkonczenia)==1)
             czyAktywna=true;
             else czyAktywna=false;
     }
+
+    /**
+     * Działania wykonywane, gdy następuje kolejny dzień
+     * @param data data kolejnego dnia
+     */
     @Override
     public void kolejnyDzien(Data data){
         this.aktualizacnaAktywnosciUmowy(data);
     }
 
+    /**
+     * @return Zwrócenie informacji o umowie w postaci ciągu znaków.
+     */
     @Override
     public String toString() {
 
