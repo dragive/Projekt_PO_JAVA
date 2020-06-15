@@ -17,14 +17,39 @@ import Wydawnictwo.MagazynExceptions.MagazynZaMaloPublikacjiDoWykonaniaZakupuExc
 
 import javax.swing.*;
 
-
+/**
+ * Klasa opisująca działanie wydawnictwa
+ */
 public class Wydawnictwo implements Serializable {
+    /**
+     * Prywatne pole klasy Wydawnictwo. Przechowuje informacje o magazynie
+     */
     private Magazyn magazyn;
+    /**
+     * Prywatne pole klasy Wydawnictwo. Przechowuje informacje o Dziale Handlowym
+     */
     private DzialHandlowy sklep;
+    /**
+     * Prywatne pole klasy Wydawnictwo. Przechowuje informacje o Dziale Druku
+     */
     private DzialDruku druk;
+    /**
+     * Prywatne pole klasy Wydawnictwo. Przechowuje informacje o autorach
+     */
     public List<Autor> autorzy;
+    /**
+     * Prywatne pole klasy Wydawnictwo. Przechowuje informacje o aktualnej dacie
+     */
     private Data data;
+    /**
+     * Prywatne pole klasy Wydawnictwo. Przechowuje informacje o publikacjach
+     */
     private List<Publikacja> publikacje;
+
+    /**
+     * Publiczny konstruktor klasy Wydawnictwo
+     * @param data
+     */
     public Wydawnictwo(Data data){
         magazyn= new Magazyn();
         sklep = new DzialHandlowy();
@@ -33,18 +58,18 @@ public class Wydawnictwo implements Serializable {
         this.data= data;
         publikacje=new ArrayList<Publikacja>();
     }
+
+    /**
+     * Metoda wykorzystywana do dodawnaia autora do listy Autorów zapisanych w wydawnictwie
+     * @param tworca twórca który będzie dodany do listy autorów
+     */
     public void dodajAutora(Autor tworca){
         autorzy.add(tworca);
     }
-    /*public void usunAutora(Autor tworca){
-        Iterator it = this.autorzy.iterator();
-        while(it.hasNext()){
-            if(it.next().equals(tworca))
-            {
-                it.remove();
-            }
-        }
-    }*/
+
+    /**
+     * Metoda wykonywana, gdy ma nastąpić kolejny dzień w wydawnictwie
+     */
     public void kolejnyDzien(){
         data.kolejnyDzien();
         Iterator it= autorzy.iterator();
@@ -54,10 +79,24 @@ public class Wydawnictwo implements Serializable {
             x.kolejnyDzien(data);
         }
     }
+
+    /**
+     * metoda slużąca do pobrania aktualnej daty w wydawnictwie
+     * @return Zwracana jest aktualna data
+     */
     public Data getData(){
         return data;
     }
+
+    /**
+     * Zwraca obiekt magazynu podlegającego pod wydawnictwo
+     * @return Zwracany jest obiekt magazynu podelgający pod wydawnictwo
+     */
     public Magazyn getMagazyn(){return magazyn;}
+
+    /**
+     * Metoda służąca do wypisywania autorów zapisanych w wydawnictwie na ekranie
+     */
     public void wypiszAutor(){
         if (autorzy.size()==0){
             System.out.println("\n\tW wydawnictwie nie ma zapisanych żadnych autorów.\n");
@@ -71,11 +110,24 @@ public class Wydawnictwo implements Serializable {
             id++;
         }
     }
+
+    /**
+     * Metoda służąca do pobrania obiektu sklepu
+     * @return Zwraca obiekt  klasy DzialHandlowy zapisany w wydawnictwie jako pole o nazwie sklep
+     */
     public DzialHandlowy getSklep(){return sklep;}
 
+    /**
+     * Getter listy Autorów
+     * @return Zwraca listę autorów
+     */
     public List<Autor> getAutorzy() {
         return autorzy;
     }
+
+    /**
+     * Metoda służąca do wypisania wszystkich umów zawartych z jakimikolwiek autorami
+     */
     public void wypiszWszystkieUmowy(){
 
         Iterator it = autorzy.iterator();
@@ -88,6 +140,11 @@ public class Wydawnictwo implements Serializable {
         }
         if(id==0){System.out.println("\nNie ma żadnych aktywnych umów.\n");}
     }
+
+    /**
+     * Metoda słuząca do pozyskania liczby umów zawartych z autorami
+     * @return Zwraca liczbę umów zawartych z autorami
+     */
     public Integer iloscWszystkichUmow(){
         Integer ilosc=0;
         Iterator it = autorzy.iterator();
@@ -100,6 +157,10 @@ public class Wydawnictwo implements Serializable {
         }
         return ilosc;
     }
+
+    /**
+     * Metoda służąca do wypisania aktywnych umów.
+     */
     public void wypiszAktywneUmowy(){
 
         Iterator it = autorzy.iterator();
@@ -112,6 +173,11 @@ public class Wydawnictwo implements Serializable {
         }
         if(id==0){System.out.println("\nNie ma żadnych aktywnych umów.\n");}
     }
+
+    /**
+     * Metoda wprowadzająca możliwość zakonczenia i rozwiazania umowy z danym autorem.
+     * @param ID Numer umowy w liście do zakończenia
+     */
     public void zakonczUmowe(Integer ID){
 
         Iterator it = autorzy.iterator();
@@ -124,9 +190,20 @@ Integer i =0;
         }
 
     }
+
+    /**
+     * Metoda służąca do dodanie publiakcji do listy zapisanych wczensiej publikacji w wydawnictwie
+     * @param dzielo Publikacja, która ma być dodana do listy publikacji w wydawnictwie
+     */
     public void dodajPublikacje(Publikacja dzielo){
         publikacje.add(dzielo);
     }
+
+    /**
+     * Metoda służąca do określenia ID autora na liście z autorami
+     * @param imieNazwisko Imie i nazwisko autora, dla którego ma być okreslone ID
+     * @return ID autora w liście z autorami w wydwanictwie
+     */
     public Integer getIDAutora(String imieNazwisko){
         Integer ID=0;
         for(Autor a:this.autorzy){
@@ -135,6 +212,12 @@ Integer i =0;
         }
         return -1;
     }
+
+    /**
+     * Dodanie Umowy do konkretnego autora
+     * @param umowa Umowa, która ma być dodana do autora
+     * @param imieNazwisko Imie i nazwisko autora, do którego ma być dopisana umowa
+     */
     public void dodajUmoweDoAutora(Umowa umowa, String imieNazwisko){
         Integer ID=getIDAutora(imieNazwisko);
         Autor a;
@@ -151,8 +234,16 @@ Integer i =0;
         }
 
     }
+
+    /**
+     * Publiczny Getter listy publikacji zapisanych w wydawnictwie
+     * @return Lista z zapisanymi publikacjami w wydawnictwie
+     */
     public List<Publikacja> getPublikacje(){return publikacje;}
 
+    /**
+     * Metoda służąca do wypisywania wszystkich zapisanych publikacji w wydawnictwie
+     */
     public void wypiszPublikacje(){
         if(publikacje.size()==0){System.out.println("\nW wydawnictwie nie ma zapisanych żadnych publikacji.\n");return;}
 
@@ -160,6 +251,10 @@ Integer i =0;
             System.out.println(a.toString());
         }
     }
+
+    /**
+     * Metoda służąca do wypisywania wszystkich zapisanych publikacji w wydawnictwie wraz z ich ID w liście
+     */
     public void wypiszPublikacjeZID(){
         if(publikacje.size()==0){System.out.println("\nW wydawnictwie nie ma zapisanych żadnych publikacji.\n");return;}
         Integer i=0;
@@ -168,6 +263,12 @@ Integer i =0;
             i++;
         }
     }
+
+    /**
+     * Pobranie publikacji z listy publikacji zapisanych w wydawnictwie
+     * @param ID pozycja w liście danej publikacji
+     * @return Zwracana jest publiakcja stojąca na danej podanej w parametrze pozycji
+     */
     public Publikacja getPublikacja(Integer ID){
         Iterator it=publikacje.iterator();
         while(it.hasNext()&&(ID)>0){
@@ -177,9 +278,19 @@ Integer i =0;
         return (Publikacja) it.next();
     }
 
+    /**
+     * Metoda służąca do dodania zlecenia druku konkretnej publikacji do konkretnej drukarni.
+     * @param publikacja Publikacja, która będzie drukowana
+     * @param ilosc nakład drukowanej publikacji
+     * @param drukarnia ID drukarni, w której ma się odbyć druk
+     */
     public void dodajZlecenieDrukuPublikacji(Publikacja publikacja,Integer ilosc,Integer drukarnia){
         druk.dodajZlecenieDrukuPublikacji(publikacja,ilosc,drukarnia);
     }
+
+    /**
+     * Wydanie polecenia wydruku we wszystkich drukarniach na raz
+     */
     public void wydajPolecenieDruku(){
 
         Vector <Pair<Publikacja,Integer>> vector= druk.wydajPolecenieWydruku();
@@ -190,14 +301,23 @@ Integer i =0;
 
     }
 
+    /**
+     * Metoda służąca do wypisania wszystkich zlecen druku w poszczegołnych drukarniach
+     */
     public void wypiszZleceniaDruku() {
         druk.wypiszZleceniaDruku();
     }
 
+    /**
+     * Metoda wypisaująca stan ,agazynu w wydawnictwie
+     */
     public void wypiszStanMagazynu() {
         magazyn.wypiszStanMagazynu(publikacje);
     }
 
+    /**
+     * Metoda służąca definicji ceny publikajcji w sklepie wydawnictwa
+     */
     public void ustawCenePublikacji(){
         wypiszPublikacjeZID();
         Integer dane;
@@ -230,13 +350,29 @@ Integer i =0;
         }while(!ok);
         sklep.setCena((Publikacja)it.next(),((float) Math.round((cena*100)/100)));
     }
+
+    /**
+     * Metoda relizująca zmniejszenie stanu magazynu w wydawnictwie o dana ilosc danych publikacji
+     * @param publ publikacja, dla której ma być zminiejszony stan w magazynie
+     * @param ilosc ilość, o którą ma zmniejszyć się stan danej publikacji w magazynie
+     * @throws MagazynZaMaloPublikacjiDoWykonaniaZakupuException Wyjątek podnoszony, gdy nie ma wsytarczającej ilości danej publiakcji by zrealizować to działanie
+     */
     public void zakupPublikacji(Publikacja publ,Integer ilosc) throws MagazynZaMaloPublikacjiDoWykonaniaZakupuException {
         magazyn.zmniejszenieStanuMagazynu(publ,ilosc);
     }
 
+    /**
+     * Metoda służąca do wypisania Publikacji z cenami i ich ID
+     * @return Zwracana jest wartość ile jest publikajci wypisaywanych i posaidających cene
+     */
     public Integer wypisaniePublikacjiZCenaIID() {
         return sklep.wypisaniePublikacjiZCenaIID(publikacje,magazyn);
     }
+
+    /**
+     * Metoda służąca do zwrócenia listy publikacji zawierających cene
+     * @return Zwracana jest lista publikacji zawierających cene
+     */
     public List<Publikacja> getPublikacjeZCena() {
         /*todo debug usunac if(publikacje.get(0)==sklep.getPublikacjeZCena(publikacje))System.out.println("123123123");*/
         return sklep.getPublikacjeZCena(publikacje);
