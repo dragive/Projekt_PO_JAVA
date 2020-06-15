@@ -213,37 +213,64 @@ public class Konsola implements Serializable{
     }
 
     /**
-     * Metoda
-     * @param trescMenu
-     * @param poziom
-     * @return
+     * Metoda będąca szablonem do tworzenia menu w innych metodach.
+     * @param trescMenu W tym parametrze zawiera sie zawartość treści menu
+     * @param poziom Wskazanie w jakim teraz menu sie znajsujemy
+     * @return zwracana jest pobrana komenda z wejścia od użytkownika
      */
     public String menu(String trescMenu,String poziom){
         System.out.print(trescMenu+"\n("+poziom+", data: "+wydawnictwo.getData().toString()+")~~ ");
         Scanner scanner = new Scanner(System.in);
         return scanner.next();
     }
+
+    /**
+     * Metoda wykonywana, gdy wczytywana w silnikach Menu komenda nie wystepuje
+     * @param str nierozpoznana opcja w silniku dowolnego Menu
+     */
     public void nieznanaKomenda(String str){
         System.out.println("Podano nieznaną opcję: '"+str+"'");
     }
+
+    /**
+     * Skrócona i uproszczona wersja metody menu(String,String)
+     * @param trescMenu Parametr z treścią menu
+     * @return Zwraca komendę wpisaną przez użytkownika w postaci tylko 1 wyrazu
+     */
     public static String menu(String trescMenu){
         System.out.print(trescMenu);
         Scanner scanner = new Scanner(System.in);
         return scanner.next();
     }
+    /**
+     * Skrócona i uproszczona wersja metody menu(String,String)
+     * @param trescMenu Parametr z treścią menu
+     * @return Zwraca komendę wpisaną przez użytkownika w postaci odczytu całej linii
+     */
     public static String menuL(String trescMenu){
         System.out.print(trescMenu);
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
 
+    /**
+     * Metoda wypisauje wszystkie Publikacje zapisane w wydawnictwie
+     */
     public void wypiszPublikacje() {
         wydawnictwo.wypiszPublikacje();
     }
+    /**
+     * Wypisauje Publikacje z indeksowaniem ID. Wykorzystywana zazwyczaj, gdy kolejno po niej następuje pobranie ID publikacji.
+     */
     public void wypiszPublikacjeZID() {
 
         wydawnictwo.wypiszPublikacjeZID();
     }
+
+    /**
+     * Metoda do pobierania 1 z 3 publikacji. Zadawane jest użytkownikowi pytanie, jaką publikacje chciałby stworzyć i kolejno pobierane są jej dane do jej utworzenia.
+     * @return zwraca nowoutworzoną publikacje
+     */
     public Publikacja utworzPublikacje(){
         Publikacja ret=null;
         String opcje="\n" +
@@ -277,6 +304,11 @@ public class Konsola implements Serializable{
         }while(wystapilBlad);
         return ret;
     }
+
+    /**
+     * Metoda pobiera od użytkownika dane do utworzenia Ksiażki
+     * @return Zwraca nowo utworzony obiekt Książka
+     */
     public Ksiazka utworzPublikacjeKsiazke(){
         String tytul=pobierzString("Podaj tytuł książki: ","Za krótki tytuł ksiązki. Podaj ponownie tytuł gatunku książki: ",true);
         String imieNazwisko=pobierzString("Podaj imię i nazwisko autora książki: ","Wczytany ciąg znaków nie może być imieniem i nazwiskiem" +
@@ -286,6 +318,11 @@ public class Konsola implements Serializable{
         if(!sprawdzCzyjestZapisanyAutor(imieNazwisko))wydawnictwo.dodajAutora(new Autor(imieNazwisko));
         return (new Ksiazka(tytul,gatunek,imieNazwisko));
     }
+
+    /**
+     * Pobiera od użytkownika dane by utworzyć Tygodnik
+     * @return Zwraca nowo utworzony obiekt klasy tygodnik
+     */
     public Tygodnik utworzPublikacjeTygodnik(){
 
         String tytul=pobierzString("Podaj tytuł tygodnika: ","Za krótki tytuł tygodnika. Podaj dłuższy tytuł miesiecznika: ",true);
@@ -296,6 +333,11 @@ public class Konsola implements Serializable{
         if(!sprawdzCzyjestZapisanyAutor(imieNazwisko))wydawnictwo.dodajAutora(new Autor(imieNazwisko));
         return (new Tygodnik(tytul,dt,imieNazwisko));
     }
+
+    /**
+     * Pobiera od uzytkownika dane by utworzyć Miesiecznik
+     * @return zwraca nowo powstały obiekt klasy Miesiecznik
+     */
     public Miesiecznik utworzPublikacjeMiesiecznik(){
         String tytul=pobierzString("Podaj tytuł miesiecznika: ","Za krótki tytuł miesiecznika. Podaj dłuższy tytuł miesiecznika: ",true);
         String imieNazwisko=pobierzString("Podaj imię i nazwisko autora Miesiecznika: ","Wczytany ciąg znaków nie może być imieniem i nazwiskiem" +
@@ -306,6 +348,9 @@ public class Konsola implements Serializable{
         return (new Miesiecznik(tytul,dt,imieNazwisko));
     }
 
+    /**
+     * Metoda służąca do wygenerowania formularzu dla użytkownika do złożenia zlecenia druku
+     */
     public void dodajZlecenieDruku(){
         if(wydawnictwo.getPublikacje().size()==0){System.out.println("\nW wydawnictwie nie ma zapisanych publiakcji, więc nie można wybrać publikacji do druku\n" +
                 "Należy dodać publikacje i następnie wydać zlecenie druku\n");return;}
@@ -353,12 +398,28 @@ public class Konsola implements Serializable{
 
         wydawnictwo.dodajZlecenieDrukuPublikacji(publ,ilosc,drukarnia-1);
     }
+
+    /**
+     * Po wykonaniu tej metody wszystkie publikacje będące w kolejce do drukowania w każdej z drukarni, zostaną wydrukowane i przekazane do magazynu
+     */
     public void wydajPolecenieWydruku(){
         wydawnictwo.wydajPolecenieDruku();
     }
+
+    /**
+     * Wypisuje dla każdej z drukarni jej zlecenia drukowania danych publikacji w danym nakladzie
+     */
     public void wypiszZleceniaDruku(){wydawnictwo.wypiszZleceniaDruku();}
 
+
+    /**
+     * Metoda ta wyświetla stan sklepu: ceny, ilość i jakie publikacje znajdują sie w sklepie.
+     */
     public void wyswietlStanSklepu(){ wypiszStanMagazynu();}
+
+    /**
+     * Metoda dzieki, której można poprzez formularz zakupuć dostępne publikacje w sklepie
+     */
     public void zakupSklep(){
         /*wypisz id ceny i publikacje
         * gdy to mozliwe czyli wyisauje sie wiecej niz 1 to koniec: nie mazkupu
@@ -419,23 +480,44 @@ public class Konsola implements Serializable{
 
 
     }
+
+    /**
+     * Wypisauje dostępne publikacje na ekran, które mają przypisana cene wraz z ich ID
+     * @return zwraca ilość publikacji z ceną
+     */
     public Integer wypisaniePublikacjiZCenaIID(){
        return  wydawnictwo.wypisaniePublikacjiZCenaIID();
     }
+
+    /**
+     * Metoda wypisuje ilości książek składowanych w magazynie.
+     */
     public void wypiszStanMagazynu() {
         wydawnictwo.wypiszStanMagazynu();
     }
+
+    /**
+     * Metoda zawierająca formularz do ustalania cen dla publikacji zapisanych w wydawnictwie
+     */
     public void definiowowanieCenyPublikacji() {
         wydawnictwo.ustawCenePublikacji();
     }
 
-
+    /**
+     * Zarządzanie Autorami. Metoda z której wywoływane jest Menu dla zarządzania Autorami.
+     * @throws wyjscieZMenuThrowable Wyrzucana, gdy użytkownik poda komendę do wyjścia z menu
+     */
     public void zarzadzanieAutorami()throws wyjscieZMenuThrowable{
         String trescMenu="\n[0] <- Wyjście do menu głównego\n[1] <- Wypisanie autorów.\n[2] <- Dodanie autora\n[3] <- Usunięcie autora.\n\nWpisz numer opcji i zatwierdź \"enterem\"";
         while(true){
             silnikMenuAutorzy(menu(trescMenu,"zarządzanie autorami"));
         }
     }
+
+    /**
+     * Zarządzanie Umowami. Metoda, z której wywoływane jest Menu dla zarządzania Umowamii.
+     * @throws wyjscieZMenuThrowable Wyrzucana, gdy użytkownik poda komendę do wyjścia z menu
+     */
     public void zarzadzanieUmowami()throws wyjscieZMenuThrowable{
         String trescMenu="\n" +
                 "[0] <- Wyjście do menu głównego.\n" +
@@ -448,6 +530,10 @@ public class Konsola implements Serializable{
             silnikMenuUmowy(menu(trescMenu,"zarządzanie umowami"));
         }
     }
+    /**
+     * Zarządzanie Publikacjami. Metoda z której wywoływane jest Menu dla zarządzania Publikacjami.
+     * @throws wyjscieZMenuThrowable Wyrzucana, gdy użytkownik poda komendę do wyjścia z menu
+     */
     public void zarzadzaniePublikacjami()throws wyjscieZMenuThrowable{
         String trescMenu="\n" +
                 "[0] <- Wyjście do menu głównego\n" +
@@ -460,6 +546,10 @@ public class Konsola implements Serializable{
             silnikMenuPublikacje(menu(trescMenu,"zarządzanie publikacjami"));
         }
     }
+    /**
+     * Zarządzanie Działem Druku. Metoda z której wywoływane jest Menu dla zarządzania Działem Druku.
+     * @throws wyjscieZMenuThrowable Wyrzucana, gdy użytkownik poda komendę do wyjścia z menu
+     */
     public void zarzadzanieDzialemDruku()throws wyjscieZMenuThrowable{
         String trescMenu="\n" +
                 "[0] <- Wyjście do menu głównego\n" +
@@ -473,6 +563,10 @@ public class Konsola implements Serializable{
             silnikMenuDzialDruku(menu(trescMenu,"zarządzanie dzialem druku"));
         }
     }
+    /**
+     * Zarządzanie Działem Handlowym. Metoda z której wywoływane jest Menu dla zarządzania Działem Handlowym.
+     * @throws wyjscieZMenuThrowable Wyrzucana, gdy użytkownik poda komendę do wyjścia z menu
+     */
     public void zarzadzanieDzialemHandlowym()throws wyjscieZMenuThrowable{
         String trescMenu="\n" +
                 "[0] <- Wyjście do menu głównego\n" +
@@ -487,6 +581,11 @@ public class Konsola implements Serializable{
             silnikMenuDzialHandlowy(menu(trescMenu,"zarządzanie sklepem i działem handlowym"));
         }
     }
+
+    /**
+     * Metoda zawiera w sobie formularz do podpisywania i dodawania umowy z danym Autorem.
+     * @throws wyjscieZMenuThrowable Wyrzucana, gdy użytkownik poda komendę do wyjścia z menu
+     */
     public void dodajUmowe()throws wyjscieZMenuThrowable{
         String opcje="\n" +
                     "[0] <- Powrót do zarządzania umowami\n" +
@@ -517,6 +616,10 @@ public class Konsola implements Serializable{
 
         }while(wystapilBlad);
     }
+
+    /**
+     * Metoda zawiera w sobie formularz dodawania umowy o prace z autorem
+     */
     public void dodajUmoweOPrace(){
 
         String wiadomosc="Proszę podać imię i nazwisko autora, z którym podspisywana jest umowa, i zatwierdź \"enterem\": ";
@@ -547,6 +650,10 @@ public class Konsola implements Serializable{
         wydawnictwo.dodajUmoweDoAutora(new UmowaOPrace(dataR,dataZ),imieNazwisko);
 
     }
+
+    /**
+     * Metoda zawiera w sobie formularz dodawania umowy o dzielo z autorem
+     */
     public void dodajUmoweODzielo(){
         Publikacja publ=null;
         Float kwota;
@@ -601,6 +708,10 @@ public class Konsola implements Serializable{
         wydawnictwo.dodajUmoweDoAutora(new UmowaODzielo((float) Math.round(kwota*100)/100,dataR,dataZ,publ),imieNazwisko);
 
     }
+
+    /**
+     * Metoda zawierająca w sobie formualrz do zakończenia manualnego umowy z autorem
+     */
     public void zakonczUmowe(){
         String message = "Podaj ID publikacji do usuniecia: ";
         String komunikat = "Nie ma takiej umowy o takim ID. ";
@@ -619,6 +730,10 @@ public class Konsola implements Serializable{
 
     }
 
+
+    /**
+     * Metoda zawiera w sobie formularz dodawania autora do wydawnictwa
+     */
     public void dodajaAutora(){
         String imienazwisko,message;
         boolean first=false;
@@ -632,6 +747,10 @@ public class Konsola implements Serializable{
         }while(imienazwisko.length()==0);
         wydawnictwo.dodajAutora(new Autor(imienazwisko));
     }
+
+    /**
+     * Metoda zawiera w sobie formularz usuwania autora z wydawnictwa
+     */
     public void usunAutora(){
         if(wydawnictwo.getAutorzy().size()==0){System.out.println("\nNie ma żadnego autora do usunięcia.\n\n");return;}
         wypiszAutorow();
@@ -668,8 +787,17 @@ public class Konsola implements Serializable{
         if(!usunieto) System.out.println("\nNie usunięto żadnego autora, ponieważ nie ma takiego autora o takim ID.");
         else          System.out.println("\nPoprawnie usunięto autora.");
     }
+
+    /**
+     * Metoda wypisuje wszystkich autorów zapisanych w wydawnictwie
+     */
     public void wypiszAutorow(){wydawnictwo.wypiszAutor();}
 
+    /**
+     * Metoda sprawdzająca czy w wydawnictwie jest taki autor o takim imieniu i nazwisku
+     * @param imieNazwisko Imie i nazwisko autora
+     * @return zwraca wartośc logiczna Prawda, gdy autora jest zapsany w wydawnictwie, Fałsz, gdy nie jest
+     */
     public boolean sprawdzCzyjestZapisanyAutor(String imieNazwisko){
         List<Autor> lista = wydawnictwo.getAutorzy();
         for (Autor t : lista){
@@ -678,6 +806,11 @@ public class Konsola implements Serializable{
 return false;
     }
 
+    /**
+     * Pobranie obiektu Wydawnictwo i zapisanie go do pliku
+     * @param o Obiekt do zapisania
+     * @param nazwaPliku Nazwa pliku, do którego będzie wczytywanie
+     */
     public static void zapisObiektuDoPliku(Wydawnictwo o, String nazwaPliku){
         try{
             FileOutputStream outFile = new FileOutputStream(nazwaPliku);
@@ -689,6 +822,14 @@ return false;
             ex.printStackTrace();
         }
     }
+
+    /**
+     * Wczytanie obiektu z pliku
+     * @param nazwaPliku Nazwa pliku z którego będzie wczytywany obiekt
+     * @return Zwraca pobrany obiekt
+     * @throws IOException Błąd przy niepowiedzeniu się pobrania zawartośći pliku
+     * @throws ClassNotFoundException Błąd konwersji na obiekt klasy Object
+     */
     public static Object odczytObiektuZPliku(String nazwaPliku) throws IOException, ClassNotFoundException {
         Object ret=null;
 
@@ -702,6 +843,9 @@ return false;
 
     }
 
+    /**
+     * Metoda wykonywana by pobrać dane z pliku
+     */
     public void wczytajDane(){
         try{wydawnictwo=(Wydawnictwo) odczytObiektuZPliku("wyd.dat");}
         catch (IOException | ClassNotFoundException exception){
@@ -709,6 +853,13 @@ return false;
         }
 
     }
+
+    /**
+     * Metoda statyczna służąca do wypisaywania ciągów i dopełnić brakujące miejsce w długości podanej w parametrze spacjami
+     * @param wiadomosc Ciąg znaków do wypisania
+     * @param szerokosc Minimalna szerokość wypisaywanego ciągu znaków
+     * @return
+     */
     public static String stalaSzerokosc(String wiadomosc, int szerokosc){
         String str="";
         for(int i=0;i<szerokosc-wiadomosc.length();i++){
@@ -716,6 +867,11 @@ return false;
         }
         return wiadomosc+str;
     }
+
+    /**
+     * Metoda statyczna służąca jako formularz do pobierania Daty od użytkownika
+     * @return Zwraca nowopowstały obiekt klasy Data zawierający date
+     */
     public static Data pobierzDate(){
         boolean dataNiepoprawna=false;Data ret=null;
         do {
@@ -781,6 +937,11 @@ return false;
         }while(dataNiepoprawna);
         return ret;
     }
+
+    /**
+     * Metoda statyczna służąca jako formularz do pobierania liczby całkowitej od użytkownika
+     * @return Zwraca nowopowstały obiekt klasy Integer
+     */
     public static Integer pobierzInteger(String wiadomosc,String komunikatOBledzie) {
         String id;
         Integer ID=null;
@@ -800,6 +961,11 @@ return false;
         } while (!ok);
         return ID;
     }
+
+    /**
+     * Metoda statyczna służąca jako formularz do pobierania liczby zmiennoprzecinkowej od użytkownika
+     * @return Zwraca nowopowstały obiekt klasy Float
+     */
     public static Float pobierzFloat(String wiadomosc,String komunikatOBledzie) {
         String id;
         Float ID=null;
@@ -821,6 +987,10 @@ return false;
         } while (!ok);
         return ID;
     }
+    /**
+     * Metoda statyczna służąca jako formularz do pobierania Ciagu znaków od użytkwonika
+     * @return Zwraca nowopowstały obiekt klasy String
+     */
     public static String pobierzString(String wiadomosc,String komunikatOBledzie, boolean wczytywanieCalejLinii) {
         String id=null;
         boolean ok = true;
@@ -847,6 +1017,10 @@ return false;
         return id;
     }
 
+    /**
+     *Metoda statyczna służąca do pobierania od użytkownika w formie formularza dnia tygodnia
+     * @return Zwraca nowopowstały obiekt klasy DzienTygodnia
+     */
     public  static DzienTygodnia pobierzDzienTygodnia(){
         boolean dataNiepoprawna=false;DzienTygodnia ret=null;
         do {
@@ -882,6 +1056,10 @@ return false;
         }while(dataNiepoprawna);
         return ret;
     }
+    /**
+     *Metoda statyczna służąca do pobierania od użytkownika w formie formularza dnia miesiąca
+     * @return Zwraca nowopowstały obiekt klasy DzienMiesiąca
+     */
     public  static DzienMiesiaca pobierzDzienMiesiaca(){
         boolean dataNiepoprawna=false;DzienMiesiaca zwracanaWartosc=null;
         do {
@@ -917,6 +1095,4 @@ return false;
         }while(dataNiepoprawna);
         return zwracanaWartosc;
     }
-
-
 }
