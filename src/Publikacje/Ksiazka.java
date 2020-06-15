@@ -25,11 +25,17 @@ public class Ksiazka  extends Publikacja{
         this.gatunek=gatunek;
     }
 
+    /**
+     * Getter Gatunku książki
+     * @return Zwraca gatunek danej książki
+     */
     public String getGatunek(){
         return  this.gatunek;
     }
 
-
+    /**
+     * @return Zwraca informacje o publikacji w postaci ciągu znaków, gotowych do wypisania
+     */
     @Override
     public String toString() {
         return "Kategoria: Ksiazka        " + " Autor: "+Konsola.stalaSzerokosc(imieNazwiskoAutora,20)+
@@ -37,6 +43,11 @@ public class Ksiazka  extends Publikacja{
                 " Gatunek: "+ Konsola.stalaSzerokosc(getGatunek(),20);
     }
 
+    /**
+     * Metoda do porównania 2 obiektów czy sa takie same
+     * @param o Obiekt do porównań
+     * @return zwraca wartość logiczna czy są takie same
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -24,13 +24,21 @@ public final class Tygodnik extends PublikacjaCykliczna{
 
         this.dzienTygodnia=dzienTygodnia;
     }
+
+    /**
+     * @return Zwraca informacje o publikacji w postaci ciągu znaków, gotowych do wypisania
+     */
     @Override
     public String toString() {
         return "Kategoria: Tygodnik        Autor: " + Konsola.stalaSzerokosc(imieNazwiskoAutora, 20) +
                 " Tytuł: " + Konsola.stalaSzerokosc(getTytul(), 20) +
                 " Dzien wydania: " + Konsola.stalaSzerokosc(dzienTygodnia.toString(), 15);
     }
-
+    /**
+     * Metoda do porównania 2 obiektów czy sa takie same
+     * @param o Obiekt do porównań
+     * @return zwraca wartość logiczna czy są takie same
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
