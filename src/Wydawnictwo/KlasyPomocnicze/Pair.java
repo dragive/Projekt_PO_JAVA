@@ -2,10 +2,26 @@ package Wydawnictwo.KlasyPomocnicze;
 
 import java.io.Serializable;
 
+/**
+ * Klasa implementująca pare obiektów
+ * @param <A> 1. typ obiektu
+ * @param <B> 2. typ obiektu
+ */
 public class Pair<A, B> implements Serializable {
+    /**
+     * Pole przechowujące obiekt first;
+     */
     private A first;
+    /**
+     * Pole przechowujące obiekt second;
+     */
     private B second;
 
+    /**
+     * konstruktor pobierający 2 obiekty
+     * @param first pierwszy obiekt typu A
+     * @param second drugi obiekt typu B
+     */
     public Pair(A first, B second) {
         super();
         this.first = first;
@@ -19,6 +35,11 @@ public class Pair<A, B> implements Serializable {
         return (hashFirst + hashSecond) * hashSecond + hashFirst;
     }
 
+    /**
+     * Porównanie 2 obiektów czy są takie same
+     * @param other Obiekt do porównania
+     * @return Zwraca wartość ligiczną prawda jak obiekty są takie same
+     */
     public boolean equals(Object other) {
         if (other instanceof Pair) {
             Pair otherPair = (Pair) other;
@@ -34,6 +55,9 @@ public class Pair<A, B> implements Serializable {
         return false;
     }
 
+    /**
+     * @return Zwracany jest ciąg znaków reprezentujący zawartość obiektu
+     */
     public String toString()
     {
         return "(" + first + ", " + second + ")";
