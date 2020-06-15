@@ -38,6 +38,7 @@ public class Konsola implements Serializable{
                 "[4] <- Zarządzanie dzialem druku.\n" +
                 "[5] <- Zarządzanie sklepem.\n" +
                 "\n"+
+                "[8] <- Zapisanie do pliku.\n" +
                 "[9] <- Kolejny dzień.\n" +
                 "\n"+
                 "[0] <- Wyjście z programu\n" +
@@ -57,7 +58,7 @@ public class Konsola implements Serializable{
                 break;
             case "9":
                 wydawnictwo.kolejnyDzien();
-                System.out.println();
+
                 break;
             case "1":
                 try{zarzadzanieAutorami();}catch (wyjscieZMenuThrowable th){}
@@ -75,7 +76,7 @@ public class Konsola implements Serializable{
                 try{
                     zarzadzanieDzialemHandlowym();}catch (wyjscieZMenuThrowable th){}
                 break;
-            case "z":
+            case "8":
                 zapisObiektuDoPliku(wydawnictwo,"wyd.dat");
                 break;
 

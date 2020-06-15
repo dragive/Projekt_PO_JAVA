@@ -75,7 +75,7 @@ public class Magazyn  implements Serializable {
     public void przyjmijPublikacjeZWydruku(Vector<Pair<Publikacja,Integer>> zWydruku){
         Publikacja p;
         Integer l;
-        System.out.print(zWydruku.size());
+
         for(int i=0;i<zWydruku.size();i++){
             p=zWydruku.get(i).getFirst();
             l=zWydruku.get(i).getSecond();
