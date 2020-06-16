@@ -31,25 +31,7 @@ public class Autor implements Serializable {
     public Autor(String imieNazwisko) {
         umowy = new ArrayList<Umowa>();
         this.imieNazwisko = imieNazwisko;
-        /*try {
-            umowy.add(new UmowaODzielo((float) 123.0, new Data(1000, 1, 1),
-                    new Data(2000, 2, 2), new Ksiazka("tytul", "gatuenk","autor2")));
-        } catch (Exception ex) {
-        }
-        try {
-            umowy.add(new UmowaOPrace(new Data(1000, 1, 1), new Data(2000, 2, 2)));
-        } catch (Exception ex) {
-        }
 
-        try {
-            umowy.add(new UmowaODzielo((float) 13.0, new Data(2000, 1, 1),
-                    new Data(2030, 2, 2), new Ksiazka("Ksiazka1", "gatuenk1","autor 2")));
-        } catch (Exception ex) {
-        }
-        try {
-            umowy.add(new UmowaOPrace(new Data(1990, 1, 1), new Data(1901, 2, 2)));
-        } catch (Exception ex) {
-        }*/
     }
 
     /**
