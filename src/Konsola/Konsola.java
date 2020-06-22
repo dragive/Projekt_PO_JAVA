@@ -729,6 +729,8 @@ public class Konsola implements Serializable{
      * Metoda zawierająca w sobie formualrz do zakończenia manualnego umowy z autorem
      */
     public void zakonczUmowe(){
+        int ilosc = wydawnictwo.iloscWszystkichUmow();
+        if(ilosc == 0) {System.out.print("Nie mozna zakonczyc umowy, poniewaz nie ma zawartych umow."); return; }
         String message = "Podaj ID publikacji do usuniecia: ";
         String komunikat = "Nie ma takiej umowy o takim ID. ";
         Integer ID=null;
