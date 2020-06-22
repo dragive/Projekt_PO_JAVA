@@ -201,6 +201,7 @@ public class Konsola implements Serializable{
                 break;
             case "4":
                 definiowowanieCenyPublikacji();
+                break;
             default:
                 nieznanaKomenda(cmd);
                 break;
