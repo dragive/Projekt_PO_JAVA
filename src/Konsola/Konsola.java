@@ -658,7 +658,7 @@ public class Konsola implements Serializable{
             dataR = pobierzDate();
             System.out.println("\nPodaj datę zakonczenia umowy.");
             dataZ = pobierzDate();
-            if(dataR.jestWiekszaOd(dataZ)>0)ok=false;
+            if(dataR.jestWiekszaOd(dataZ)<0)ok=false;
             if(ok)break;
         }
 
